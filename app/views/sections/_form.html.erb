@@ -27,18 +27,17 @@
   </div>
 
   <div>
-    <%= form.label :String, style: "display: block" %>
-    <%= form.text_field :String %>
-  </div>
-
-  <div>
     <%= form.label :student_id, style: "display: block" %>
     <%= form.text_field :student_id %>
   </div>
 
-  <div>
-    <%= form.label :subject_id, style: "display: block" %>
-    <%= form.text_field :subject_id %>
+   <div>
+    <%= form.label :subject_id, "Subject", style: "display: block" %>
+    <%= form.collection_select :subject_id,
+                               Subject.order(:name),
+                               :id,
+                               :name,
+                               { prompt: "Select a teacher" } %>
   </div>
 
   <div>
