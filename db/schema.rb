@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_29_103403) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_07_113939) do
   create_table "departments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -37,6 +37,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_29_103403) do
     t.index ["department_id"], name: "index_students_on_department_id"
   end
 
+  create_table "subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "teacher_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
+  end
+
   create_table "teachers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -49,5 +57,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_29_103403) do
 
   add_foreign_key "laboratories", "departments"
   add_foreign_key "students", "departments"
+  add_foreign_key "subjects", "teachers"
   add_foreign_key "teachers", "departments"
 end
