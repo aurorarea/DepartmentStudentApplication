@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  room: MyString
+  timeslot: MyString
+  String: MyString
+  student: one
+  subject: one
+
+two:
+  name: MyString
+  room: MyString
+  timeslot: MyString
+  String: MyString
+  student: two
+  subject: two
