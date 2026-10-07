@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @teacher.subjects.each do |subject|%>
+      <% @teacher.subjects.each do |subject| %>
        <tr>
          <td><%= subject.name %></td>
        </tr>
@@ -19,6 +19,7 @@
     </tbody>
   </table>
 <% end %>  
+
 <div>
   <%= link_to "Edit this teacher", edit_teacher_path(@teacher) %> |
   <%= link_to "Back to teachers", teachers_path %>
