@@ -2,26 +2,30 @@
 
 <%= render @student %>
 
-<% if @student.sections.any? %>
-  <h3>Enrolled Sections:</h3>
+<% if @student.classlists.any? %>
+  <h3>List of Subjects:</h3>
   <table>
     <thead>
       <tr>
-        <th>Section Name</th>
+        <th>Name</th>
+        <th>Section</th>
         <th>Room</th>
         <th>Timeslot</th>
       </tr>
     </thead>
+    
     <tbody>
-      <% @student.sections.each do |section| %>
+      <% @student.classlists.each do |classlist| %>
         <tr>
-          <td><%= section.name %></td>
-          <td><%= section.room %></td>
-          <td><%= section.timeslot %></td>
+          <td><%= classlist.section.subject&.name %></td>
+          <td><%= classlist.section&.name %></td>
+          <td><%= classlist.section&.room %></td>
+          <td><%= classlist.section&.timeslot %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+
 <% else %>
   <p>Not enrolled in any sections yet.</p>
 <% end %>

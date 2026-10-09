@@ -6,7 +6,11 @@
 
   <div>
     <strong>Teacher:</strong>
-    <%= subject.teacher_id %>
+    <%= subject.teacher&.name %>
+
+   <div>
+    <strong>Section Count:</strong>
+    <%= subject.sectionCount %>
   </div>
 
 </div>

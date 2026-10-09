@@ -35,6 +35,16 @@
                                {prompt:"Select a department"} %>
   </div>
 
+ <div>
+    <%= form.label :monthlySalary,"Monthly Salary", style: "display: block" %>
+    <%= form.number_field :monthlySalary, step: :any %>
+  </div>
+
+  <div>
+    <%= form.label :perUnitRate,"Per Unit Rate", style: "display: block" %>
+    <%= form.number_field :perUnitRate, step: :any %>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>

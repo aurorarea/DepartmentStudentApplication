@@ -16,7 +16,12 @@
 
   <div>
     <strong>Subject:</strong>
-    <%= section.subject_id %>
+    <%= section.subject&.name %>
+  </div>
+
+  <div>
+    <strong>Students Count:</strong>
+    <%= section.studentsCount %>
   </div>
 
 </div>

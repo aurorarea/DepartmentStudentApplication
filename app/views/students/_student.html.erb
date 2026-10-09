@@ -16,7 +16,22 @@
 
   <div>
     <strong>Department:</strong>
-    <%= student.department_id %>
+    <%= student.department&.name %>
+  </div>
+
+  <div>
+    <strong>Tuition Fee:</strong>
+    <%= student.tuitionFee %>
+  </div>
+
+  <div>
+    <strong>Subjects Count:</strong>
+    <%= student.subjectsCount%>
+  </div>
+
+  <div>
+    <strong>Number of Units:</strong>
+    <%= student.numberOfUnits%>
   </div>
 
 </div>
