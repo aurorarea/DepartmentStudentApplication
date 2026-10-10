@@ -2,7 +2,6 @@
   <% if classlist.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(classlist.errors.count, "error") %> prohibited this classlist from being saved:</h2>
-
       <ul>
         <% classlist.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,26 +10,15 @@
     </div>
   <% end %>
 
-<div>
-  <%= form.label :student_name, "Student Name", style: "display: block" %>
-  <%= form.text_field :student_name, list: "students_list", placeholder: "Type to search name..." %>
-  
-  <datalist id="students_list">
-    <% Student.order(:name).each do |student| %>
-      <option value="<%= student.name %>"></option>
-    <% end %>
-  </datalist>
-</div>
+  <div>
+    <%= form.label :student_id, "Student", style: "display: block" %>
+    <%= form.collection_select :student_id, Student.order(:name), :id, :name, prompt: "Select a student" %>
+  </div>
 
   <div>
     <%= form.label :section_id, "Section", style: "display: block" %>
-    <%= form.collection_select :section_id,
-                               Section.order(:name),
-                               :id,
-                               :name,
-                               {prompt:"Select a section"} %>
+    <%= form.collection_select :section_id, Section.order(:name), :id, :display_name, prompt: "Select a section" %>
   </div>
-
 
   <div>
     <%= form.submit %>

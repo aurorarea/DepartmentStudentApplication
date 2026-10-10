@@ -19,23 +19,23 @@ class ClasslistsController < ApplicationController
   def edit
   end
 
-# POST /classlists or /classlists.json
-def create
-    student = Student.find_by(name: params[:classlist][:student_name])
-
-    @classlist = Classlist.new(classlist_params.except(:student_name))
-    @classlist.student = student
+  # POST /classlists or /classlists.json
+  def create
+    @classlist = Classlist.new(classlist_params)
+    student = Student.find_by(id: params[:from_student])
 
     respond_to do |format|
-      if student.nil?
-        @classlist.errors.add(:base, "Student '#{params[:classlist][:student_name]}' was not found.")
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @classlist.errors, status: :unprocessable_entity }
-      elsif @classlist.save
-        format.html { redirect_to @classlist, notice: "Classlist was successfully created." }
+      if @classlist.save
+        format.html { redirect_to student || @classlist, notice: "Classlist was successfully created." }
         format.json { render :show, status: :created, location: @classlist }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html do
+          if student
+            redirect_to student, alert: @classlist.errors.full_messages.to_sentence, status: :see_other
+          else
+            render :new, status: :unprocessable_entity
+          end
+        end
         format.json { render json: @classlist.errors, status: :unprocessable_entity }
       end
     end
@@ -48,30 +48,32 @@ def create
         format.html { redirect_to @classlist, notice: "Classlist was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @classlist }
       else
-        format.html { render :edit, status: :unprocessable_content }
-        format.json { render json: @classlist.errors, status: :unprocessable_content }
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @classlist.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /classlists/1 or /classlists/1.json
   def destroy
+    student = Student.find_by(id: params[:from_student])
     @classlist.destroy!
 
     respond_to do |format|
-      format.html { redirect_to classlists_path, notice: "Classlist was successfully destroyed.", status: :see_other }
+      format.html { redirect_to student || classlists_path, notice: "Classlist was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_classlist
-      @classlist = Classlist.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def classlist_params
-      params.expect(classlist: [ :student_name, :section_id ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_classlist
+    @classlist = Classlist.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def classlist_params
+    params.require(:classlist).permit(:student_id, :section_id)
+  end
 end
