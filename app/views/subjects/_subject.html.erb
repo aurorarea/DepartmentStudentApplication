@@ -1,16 +1,13 @@
-<div id="<%= dom_id subject %>">
-  <div>
-    <strong>Name:</strong>
-    <%= subject.name %>
+<div id="<%= dom_id subject %>" class="card mb-3 shadow-sm border-0 bg-light">
+  <div class="card-body">
+    <h5 class="card-title text-primary mb-1"><%= subject.name %></h5>
+    <div class="row g-2 mt-2">
+      <div class="col-md-6">
+        <p class="mb-1"><strong>Teacher:</strong> <%= subject.teacher&.name || "Unassigned" %></p>
+      </div>
+      <div class="col-md-6">
+        <p class="mb-1"><strong>Section Count:</strong> <%= subject.sectionCount || 0 %></p>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <strong>Teacher:</strong>
-    <%= subject.teacher&.name %>
-
-   <div>
-    <strong>Section Count:</strong>
-    <%= subject.sectionCount %>
-  </div>
-
 </div>
