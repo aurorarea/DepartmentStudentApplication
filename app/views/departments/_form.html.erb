@@ -22,6 +22,21 @@
   </div>
 
   <div>
+    <%= form.label :studentsCount,"Students Count", style: "display: block" %>
+    <%= form.number_field :studentsCount%>
+  </div>
+
+  <div>
+    <%= form.label :teachersCount,"Teachers Count", style: "display: block" %>
+    <%= form.number_field :teachersCount%>
+  </div>
+
+  <div>
+    <%= form.label :laboratory,"Laboratory", style: "display: block" %>
+    <%= form.number_field :laboratory%>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

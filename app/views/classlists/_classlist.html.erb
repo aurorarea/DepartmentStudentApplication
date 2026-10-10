@@ -1,12 +1,12 @@
 <div id="<%= dom_id classlist %>">
   <div>
     <strong>Student:</strong>
-    <%= classlist.student_id %>
+    <%= classlist.student&.name %>
   </div>
 
   <div>
     <strong>Section:</strong>
-    <%= classlist.section_id %>
+    <%= classlist.section&.name %>
   </div>
 
 </div>
