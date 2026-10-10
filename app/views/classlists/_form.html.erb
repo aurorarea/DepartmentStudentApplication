@@ -11,10 +11,16 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :student_id, style: "display: block" %>
-    <%= form.text_field :student_id %>
-  </div>
+<div>
+  <%= form.label :student_name, "Student Name", style: "display: block" %>
+  <%= form.text_field :student_name, list: "students_list", placeholder: "Type to search name..." %>
+  
+  <datalist id="students_list">
+    <% Student.order(:name).each do |student| %>
+      <option value="<%= student.name %>"></option>
+    <% end %>
+  </datalist>
+</div>
 
   <div>
     <%= form.label :section_id, "Section", style: "display: block" %>

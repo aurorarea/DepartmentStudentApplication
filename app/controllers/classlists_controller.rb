@@ -19,17 +19,24 @@ class ClasslistsController < ApplicationController
   def edit
   end
 
-  # POST /classlists or /classlists.json
-  def create
-    @classlist = Classlist.new(classlist_params)
+# POST /classlists or /classlists.json
+def create
+    student = Student.find_by(name: params[:classlist][:student_name])
+
+    @classlist = Classlist.new(classlist_params.except(:student_name))
+    @classlist.student = student
 
     respond_to do |format|
-      if @classlist.save
+      if student.nil?
+        @classlist.errors.add(:base, "Student '#{params[:classlist][:student_name]}' was not found.")
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @classlist.errors, status: :unprocessable_entity }
+      elsif @classlist.save
         format.html { redirect_to @classlist, notice: "Classlist was successfully created." }
         format.json { render :show, status: :created, location: @classlist }
       else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @classlist.errors, status: :unprocessable_content }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @classlist.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,6 +72,6 @@ class ClasslistsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def classlist_params
-      params.expect(classlist: [ :student_id, :section_id ])
+      params.expect(classlist: [ :student_name, :section_id ])
     end
 end
