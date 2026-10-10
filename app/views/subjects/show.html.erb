@@ -1,28 +1,41 @@
-<p style="color: green"><%= notice %></p>
+<p>
+  <strong>Name:</strong> <%= @subject.name %><br>
+  <strong>Teacher:</strong> <%= @subject.teacher&.name %>
+</p>
 
-<%= render @subject %>
+<h3>Sections</h3>
 
-<% if @subject.sections.any? %>
-  <h3>List of Sections:</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @subject.sections.each do |section| %>
-       <tr>
-         <td><%= section.name %></td>
-       </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>  
+<% @subject.sections.each do |section| %>
+  <p>
+    <strong><%= section.name %></strong></p>
+    Room: <%= section.room %> | Timeslot: <%= section.timeslot %> | Teacher: <%= @subject.teacher&.name %>
+  </p>
+
+  <% if section.classlists.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Year Level</th>
+          <th>Program</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% section.classlists.each do |classlist| %>
+          <tr>
+            <td><%= classlist.student&.name %></td>
+            <td><%= classlist.student&.year_level %></td>
+            <td><%= classlist.student&.program %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No students enrolled in this section.</p>
+  <% end %>
+<% end %>
 
 <div>
   <%= link_to "Edit this subject", edit_subject_path(@subject) %> |
   <%= link_to "Back to subjects", subjects_path %>
-
-  <%= button_to "Destroy this subject", @subject, method: :delete %>
 </div>
