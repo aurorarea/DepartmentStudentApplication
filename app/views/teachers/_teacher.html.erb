@@ -1,32 +1,17 @@
-<div id="<%= dom_id teacher %>">
-  <div>
-    <strong>Name:</strong>
-    <%= teacher.name %>
-  </div>
+<div id="<%= dom_id teacher %>" class="card mb-3 shadow-sm border-0 bg-light">
+  <div class="card-body">
+    <h5 class="card-title text-primary mb-1"><%= teacher.name %></h5>
+    <h6 class="card-subtitle mb-3 text-muted"><%= teacher.email %></h6>
 
-  <div>
-    <strong>Email:</strong>
-    <%= teacher.email %>
+    <div class="row g-2">
+      <div class="col-md-6">
+        <p class="mb-1"><strong>Specialization:</strong> <%= teacher.specialization.presence || "N/A" %></p>
+        <p class="mb-1"><strong>Department:</strong> <%= teacher.department&.name || "Unassigned" %></p>
+      </div>
+      <div class="col-md-6">
+        <p class="mb-1"><strong>Monthly Salary:</strong> <%= number_to_currency(teacher.monthlySalary, unit: "₱") %></p>
+        <p class="mb-1"><strong>Per Unit Rate:</strong> <%= number_to_currency(teacher.perUnitRate, unit: "₱") %></p>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <strong>Specialization:</strong>
-    <%= teacher.specialization %>
-  </div>
-
-  <div>
-    <strong>Department:</strong>
-    <%= teacher.department&.name %>
-  </div>
-
-  <div>
-    <strong>Monthly Salary:</strong>
-    <%= teacher.monthlySalary %>
-  </div>
-
-  <div>
-    <strong>Per Unit Rate:</strong>
-    <%= teacher.perUnitRate%>
-  </div>
-
 </div>
