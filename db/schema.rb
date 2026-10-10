@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_07_135010) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_10_030944) do
   create_table "classlists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "section_id", null: false
@@ -25,6 +25,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_135010) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "studentsCount"
+    t.integer "teachersCount"
+    t.integer "laboratory"
   end
 
   create_table "laboratories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -43,6 +46,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_135010) do
     t.bigint "subject_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "studentsCount"
     t.index ["subject_id"], name: "index_sections_on_subject_id"
   end
 
@@ -53,6 +57,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_135010) do
     t.bigint "department_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "tuitionFee"
+    t.integer "subjectsCount"
+    t.integer "numberOfUnits"
     t.index ["department_id"], name: "index_students_on_department_id"
   end
 
@@ -61,6 +68,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_135010) do
     t.bigint "teacher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sectionCount"
     t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
   end
 
@@ -71,6 +79,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_135010) do
     t.bigint "department_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "monthlySalary"
+    t.float "perUnitRate"
     t.index ["department_id"], name: "index_teachers_on_department_id"
   end
 

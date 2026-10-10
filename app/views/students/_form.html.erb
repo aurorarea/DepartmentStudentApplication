@@ -36,6 +36,22 @@
   </div>
 
   <div>
+    <%= form.label :tuitionFee,"Tuition Fee", style: "display: block" %>
+    <%= form.number_field :tuitionFee, step: :any %>
+  </div>
+
+  <div>
+    <%= form.label :subjectsCount, "Subjects Count", style: "display: block" %>
+    <%= form.number_field :subjectsCount%>
+  </div>
+
+  <div>
+    <%= form.label :numberOfUnits,"Number of Units", style: "display: block" %>
+    <%= form.number_field :numberOfUnits%>
+  </div>
+
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

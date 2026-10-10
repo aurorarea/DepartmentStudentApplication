@@ -16,7 +16,17 @@
 
   <div>
     <strong>Department:</strong>
-    <%= teacher.department_id %>
+    <%= teacher.department&.name %>
+  </div>
+
+  <div>
+    <strong>Monthly Salary:</strong>
+    <%= teacher.monthlySalary %>
+  </div>
+
+  <div>
+    <strong>Per Unit Rate:</strong>
+    <%= teacher.perUnitRate%>
   </div>
 
 </div>

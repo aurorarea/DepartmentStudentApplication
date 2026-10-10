@@ -26,6 +26,11 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.label :sectionCount, "Section Count", style: "display: block" %>
+    <%= form.number_field :sectionCount %>
+  </div>
+
+  <div>
+   <%= form.submit %>
   </div>
 <% end %>
