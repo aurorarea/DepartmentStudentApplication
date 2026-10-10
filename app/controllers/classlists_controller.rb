@@ -3,7 +3,7 @@ class ClasslistsController < ApplicationController
 
   # GET /classlists or /classlists.json
   def index
-    @classlists = Classlist.all
+    @classlists = Classlist.includes(:student, section: :subject).all
   end
 
   # GET /classlists/1 or /classlists/1.json
@@ -22,7 +22,7 @@ class ClasslistsController < ApplicationController
   # POST /classlists or /classlists.json
   def create
     @classlist = Classlist.new(classlist_params)
-    student = Student.find_by(id: params[:from_student])
+    student = Student.find_by(id: params[:from_student]) || @classlist.student
 
     respond_to do |format|
       if @classlist.save
@@ -30,7 +30,7 @@ class ClasslistsController < ApplicationController
         format.json { render :show, status: :created, location: @classlist }
       else
         format.html do
-          if student
+          if params[:from_student].present? && student
             redirect_to student, alert: @classlist.errors.full_messages.to_sentence, status: :see_other
           else
             render :new, status: :unprocessable_entity
@@ -56,23 +56,22 @@ class ClasslistsController < ApplicationController
 
   # DELETE /classlists/1 or /classlists/1.json
   def destroy
-    student = Student.find_by(id: params[:from_student])
+    redirect_target = params[:from_student].present? ? Student.find_by(id: params[:from_student]) : classlists_path
+
     @classlist.destroy!
 
     respond_to do |format|
-      format.html { redirect_to student || classlists_path, notice: "Classlist was successfully destroyed.", status: :see_other }
+      format.html { redirect_to redirect_target, status: :see_other, notice: "Classlist was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_classlist
     @classlist = Classlist.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def classlist_params
     params.require(:classlist).permit(:student_id, :section_id)
   end
