@@ -1,6 +1,6 @@
 class Classlist < ApplicationRecord
   belongs_to :section, counter_cache: :studentsCount
-  belongs_to :student
+  belongs_to :student, counter_cache: :subjectsCount
 
   after_create :student_enrolled
   after_destroy :student_dropped
