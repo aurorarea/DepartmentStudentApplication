@@ -11,6 +11,7 @@
         <th>Section</th>
         <th>Room</th>
         <th>Timeslot</th>
+        <th>Teacher</th>
       </tr>
     </thead>    
     <tbody>
@@ -20,6 +21,7 @@
           <td><%= classlist.section&.name %></td>
           <td><%= classlist.section&.room %></td>
           <td><%= classlist.section&.timeslot %></td>
+          <td><%= classlist.section.subject.teacher&.name %></td>
         </tr>
       <% end %>
     </tbody>

@@ -10,17 +10,17 @@ class BackfillStudentEnrollmentTotals < ActiveRecord::Migration[8.1]
         teacher = subject.teacher
 
         subjects_count += 1
-        number_of_units += subject.number_of_units
+        number_of_units += subject.numberOfUnits # Make sure this matches if subject uses numberOfUnits too
 
-        if teacher && teacher.per_unit_rate
-        tuition_fee += subject.number_of_units * subject.per_unit_rate
+        if teacher && teacher.perUnitRate # Use camelCase here
+          tuition_fee += subject.numberOfUnits * teacher.perUnitRate # Use camelCase here
         end
       end
 
       student.update_columns(
-        subjects_count: subjects_count,
-        number_of_units: number_of_units,
-        tuition_fee: tuition_fee
+        subjectsCount: subjects_count,     # Match database column
+        numberOfUnits: number_of_units,    # Match database column
+        tuitionFee: tuition_fee            # Match database column
       )
     end
   end
