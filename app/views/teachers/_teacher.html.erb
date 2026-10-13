@@ -1,17 +1,15 @@
-<div id="<%= dom_id teacher %>" class="card mb-3 shadow-sm border-0 bg-light">
-  <div class="card-body">
-    <h5 class="card-title text-primary mb-1"><%= teacher.name %></h5>
-    <h6 class="card-subtitle mb-3 text-muted"><%= teacher.email %></h6>
-
-    <div class="row g-2">
-      <div class="col-md-6">
-        <p class="mb-1"><strong>Specialization:</strong> <%= teacher.specialization.presence || "N/A" %></p>
-        <p class="mb-1"><strong>Department:</strong> <%= teacher.department&.name || "Unassigned" %></p>
-      </div>
-      <div class="col-md-6">
-        <p class="mb-1"><strong>Monthly Salary:</strong> <%= number_to_currency(teacher.monthlySalary, unit: "₱") %></p>
-        <p class="mb-1"><strong>Per Unit Rate:</strong> <%= number_to_currency(teacher.perUnitRate, unit: "₱") %></p>
-      </div>
+<tr id="<%= dom_id teacher %>">
+  <td><strong><%= teacher.name %></strong></td>
+  <td><%= teacher.email %></td>
+  <td><%= teacher.specialization %></td>
+  <td><%= teacher.department&.name %></td>
+  <td><%= number_to_currency(teacher.monthlySalary || 0, unit: "₱") %></td>
+  <td><%= number_to_currency(teacher.perUnitRate || 0, unit: "₱") %></td>
+  <td class="text-center">
+    <div class="btn-group btn-group-sm" role="group">
+      <%= link_to "Show", teacher, class: "btn btn-outline-info" %>
+      <%= link_to "Edit", edit_teacher_path(teacher), class: "btn btn-outline-warning" %>
+      <%= button_to "Destroy", teacher, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
     </div>
-  </div>
-</div>
+  </td>
+</tr>
