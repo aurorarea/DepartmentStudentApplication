@@ -1,8 +1,7 @@
-<%= form_with(model: teacher) do |form| %>
+<%= form_with(model: teacher, class: "needs-validation") do |form| %>
   <% if teacher.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
-
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading"><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</h4>
       <ul>
         <% teacher.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,36 +10,33 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label fw-bold" %>
+    <%= form.text_field :name, class: "form-control shadow-sm" %>
   </div>
 
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
+  <div class="mb-3">
+    <%= form.label :email, class: "form-label fw-bold" %>
+    <%= form.text_field :email, class: "form-control shadow-sm" %>
   </div>
 
-  <div>
-    <%= form.label :specialization, style: "display: block" %>
-    <%= form.text_field :specialization %>
+  <div class="mb-3">
+    <%= form.label :specialization, class: "form-label fw-bold" %>
+    <%= form.text_field :specialization, class: "form-control shadow-sm" %>
   </div>
 
-  <div>
-    <%= form.label :department_id, "Department", style: "display: block" %>
-    <%= form.collection_select :department_id,
-                               Department.order(:name),
-                               :id,
-                               :name,
-                               {prompt:"Select a department"} %>
-  </div>
-  
-  <div>
-    <%= form.label :perUnitRate,"Per Unit Rate", style: "display: block" %>
-    <%= form.number_field :perUnitRate, step: :any %>
+  <div class="mb-3">
+    <%= form.label :department_id, class: "form-label fw-bold" %>
+    <%= form.collection_select :department_id, Department.all, :id, :name, { prompt: "Select a department" }, { class: "form-select shadow-sm" } %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+    <%= form.label :perUnitRate, "Per Unit Rate", class: "form-label fw-bold" %>
+    <%= form.number_field :perUnitRate, step: "0.01", class: "form-control shadow-sm" %>
+  </div>
+
+  <div class="d-flex align-items-center mt-4">
+    <%= form.submit "Create Teacher", class: "btn btn-info text-white rounded-pill px-4 shadow-sm" %>
+    <%= link_to "✕ Back to teachers", teachers_path, class: "btn btn-outline-danger rounded-pill px-4 ms-2" %>
   </div>
 <% end %>
