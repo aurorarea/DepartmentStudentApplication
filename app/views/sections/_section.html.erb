@@ -1,27 +1,14 @@
-<div id="<%= dom_id section %>">
-  <div>
-    <strong>Name:</strong>
-    <%= section.name %>
-  </div>
-
-  <div>
-    <strong>Room:</strong>
-    <%= section.room %>
-  </div>
-
-  <div>
-    <strong>Timeslot:</strong>
-    <%= section.timeslot %>
-  </div>
-
-  <div>
-    <strong>Subject:</strong>
-    <%= section.subject&.name %>
-  </div>
-
-  <div>
-    <strong>Students Count:</strong>
-    <%= section.studentsCount %>
-  </div>
-
-</div>
+<tr id="<%= dom_id section %>">
+  <td><strong><%= section.name %></strong></td>
+  <td><%= section.room %></td>
+  <td><%= section.timeslot %></td>
+  <td><%= section.subject&.name %></td>
+  <td><%= section.studentsCount || 0 %></td>
+  <td class="text-center">
+    <div class="btn-group btn-group-sm" role="group">
+      <%= link_to "Show", section, class: "btn btn-outline-info" %>
+      <%= link_to "Edit", edit_section_path(section), class: "btn btn-outline-warning" %>
+      <%= button_to "Destroy", section, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
+    </div>
+  </td>
+</tr>
