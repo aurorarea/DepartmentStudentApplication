@@ -1,75 +1,179 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, @department.name %>
 
-<%= render @department %>
-<% if @department.students.any? %>
-  <h3>List of Students:</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Program</th>
-        <th>Year Level</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @department.students.each do |student| %>
-        <tr>
-          <td><%= student.name %></td>
-          <td><%= student.program %></td>
-          <td><%= student.year_level%></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 <% end %>
 
-<% if @department.teachers.any? %>
-  <h3>List of Teachers:</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Specialization</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @department.teachers.each do |teacher| %>
-        <tr>
-          <td><%= teacher.name %></td>
-          <td><%= teacher.email %></td>
-          <td><%= teacher.specialization%></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<!-- Top Header with Actions -->
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h2 mb-1 fw-bold"><%= @department.name %></h1>
+    <p class="text-muted mb-0"><%= @department.location %></p>
+  </div>
+  <div class="d-flex gap-2">
+    <%= link_to "Edit", edit_department_path(@department), class: "btn btn-secondary" %>
+    <%= link_to "Back to Departments", departments_path, class: "btn btn-outline-secondary" %>
+    <%= button_to "Delete", @department, method: :delete, class: "btn btn-danger", data: { turbo_confirm: "Are you sure you want to delete this department?" } %>
+  </div>
+</div>
 
+<!-- Department Summary Cards -->
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-header bg-light py-3">
+        <h6 class="card-title mb-0 fw-bold text-secondary">Department Details</h6>
+      </div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-5 text-muted fw-normal mb-2">Name</dt>
+          <dd class="col-7 fw-semibold mb-2"><%= @department.name %></dd>
 
-<% if @department.laboratories.any? %>
-  <h3>List of Laboratories:</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @department.laboratories.each do |laboratory| %>
-        <tr>
-          <td><%= laboratory.name %></td>
-          <td><%= laboratory.location %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+          <dt class="col-5 text-muted fw-normal mb-2">Location</dt>
+          <dd class="col-7 mb-2"><%= @department.location %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
 
+  <div class="col-md-6">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-header bg-light py-3">
+        <h6 class="card-title mb-0 fw-bold text-secondary">Summary Counts</h6>
+      </div>
+      <div class="card-body d-flex align-items-center justify-content-around text-center">
+        <div>
+          <div class="display-6 fw-bold text-dark"><%= @department.students.count rescue @department.studentsCount %></div>
+          <small class="text-muted fw-semibold">Students</small>
+        </div>
+        <div class="vr my-2"></div>
+        <div>
+          <div class="display-6 fw-bold text-dark"><%= @department.teachers.count rescue @department.teachersCount %></div>
+          <small class="text-muted fw-semibold">Teachers</small>
+        </div>
+        <div class="vr my-2"></div>
+        <div>
+          <div class="display-6 fw-bold text-dark"><%= @department.laboratories.count rescue @department.laboratory %></div>
+          <small class="text-muted fw-semibold">Laboratories</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<div>
-  <%= link_to "Edit this department", edit_department_path(@department) %> |
-  <%= link_to "Back to departments", departments_path %>
+<!-- List of Laboratories -->
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+    <h6 class="card-title mb-0 fw-bold text-secondary">Laboratories</h6>
+    <span class="badge bg-secondary rounded-pill"><%= @department.laboratories.count rescue 0 %></span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-4">Laboratory Name</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @department.laboratories.any? %>
+            <% @department.laboratories.each do |lab| %>
+              <tr>
+                <td class="ps-4 fw-semibold"><%= lab.name %></td>
+                <td><%= lab.location %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="2" class="text-center py-4 text-muted">No laboratories registered under this department.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-  <%= button_to "Destroy this department", @department, method: :delete %>
+<!-- List of Teachers -->
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+    <h6 class="card-title mb-0 fw-bold text-secondary">Teachers</h6>
+    <span class="badge bg-secondary rounded-pill"><%= @department.teachers.count rescue 0 %></span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-4">Name</th>
+            <th>Email</th>
+            <th>Specialization</th>
+            <th class="text-end pe-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @department.teachers.any? %>
+            <% @department.teachers.each do |teacher| %>
+              <tr>
+                <td class="ps-4 fw-semibold"><%= teacher.name %></td>
+                <td><%= teacher.email %></td>
+                <td><%= teacher.specialization %></td>
+                <td class="text-end pe-4">
+                  <%= link_to "Show", teacher_path(teacher), class: "btn btn-sm btn-outline-primary" %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4" class="text-center py-4 text-muted">No teachers assigned to this department.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- List of Students -->
+<div class="card border-0 shadow-sm">
+  <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+    <h6 class="card-title mb-0 fw-bold text-secondary">Students</h6>
+    <span class="badge bg-secondary rounded-pill"><%= @department.students.count rescue 0 %></span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-4">Name</th>
+            <th>Program</th>
+            <th>Year Level</th>
+            <th class="text-end pe-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @department.students.any? %>
+            <% @department.students.each do |student| %>
+              <tr>
+                <td class="ps-4 fw-semibold"><%= student.name %></td>
+                <td><%= student.program %></td>
+                <td><%= student.year_level %></td>
+                <td class="text-end pe-4">
+                  <%= link_to "Show", student_path(student), class: "btn btn-sm btn-outline-primary" %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4" class="text-center py-4 text-muted">No students registered in this department.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
