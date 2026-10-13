@@ -1,16 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Departments" %>
-
-<h1>Departments</h1>
-
-<div id="departments">
-  <% @departments.each do |department| %>
-    <%= render department %>
-    <p>
-      <%= link_to "Show this department", department %>
-    </p>
-  <% end %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Departments</h1>
+  <%= link_to "New department", new_department_path, class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New department", new_department_path %>
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle border">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Students Count</th>
+        <th>Teachers Count</th>
+        <th>Laboratory</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @departments.each do |department| %>
+        <%= render department %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

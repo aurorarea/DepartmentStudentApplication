@@ -1,16 +1,26 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Students" %>
-
-<h1>Students</h1>
-
-<div id="students">
-  <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
-  <% end %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Students</h1>
+  <%= link_to "New student", new_student_path, class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New student", new_student_path %>
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle border">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Year Level</th>
+        <th>Program</th>
+        <th>Department</th>
+        <th>Tuition Fee</th>
+        <th>Subjects Count</th>
+        <th>Number of Units</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @students.each do |student| %>
+        <%= render student %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
