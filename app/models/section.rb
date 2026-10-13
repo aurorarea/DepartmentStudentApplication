@@ -4,6 +4,10 @@ class Section < ApplicationRecord
   has_many :students, through: :classlists
 
   def display_name
-    [ subject&.name, name ].compact_blank.join(" - ")
+    if subject.present?
+      "#{subject.name} - #{name}"
+    else
+      name.to_s
+    end
   end
 end

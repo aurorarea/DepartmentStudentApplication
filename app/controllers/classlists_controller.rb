@@ -26,6 +26,7 @@ class ClasslistsController < ApplicationController
 
     respond_to do |format|
       if @classlist.save
+        # Classlist after_create callback automatically updates student metrics
         format.html { redirect_to student || @classlist, notice: "Classlist was successfully created." }
         format.json { render :show, status: :created, location: @classlist }
       else
@@ -58,6 +59,7 @@ class ClasslistsController < ApplicationController
   def destroy
     redirect_target = params[:from_student].present? ? Student.find_by(id: params[:from_student]) : classlists_path
 
+    # Destroying triggers Classlist after_destroy callback which automatically recalculates student metrics
     @classlist.destroy!
 
     respond_to do |format|
