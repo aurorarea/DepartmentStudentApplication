@@ -1,37 +1,16 @@
-<div id="<%= dom_id student %>">
-  <div>
-    <strong>Name:</strong>
-    <%= student.name %>
-  </div>
-
-  <div>
-    <strong>Year level:</strong>
-    <%= student.year_level %>
-  </div>
-
-  <div>
-    <strong>Program:</strong>
-    <%= student.program %>
-  </div>
-
-  <div>
-    <strong>Department:</strong>
-    <%= student.department&.name %>
-  </div>
-
-  <div>
-    <strong>Tuition Fee:</strong>
-    <%= student.tuitionFee %>
-  </div>
-
-  <div>
-    <strong>Subjects Count:</strong>
-    <%= student.subjectsCount%>
-  </div>
-
-  <div>
-    <strong>Number of Units:</strong>
-    <%= student.numberOfUnits%>
-  </div>
-
-</div>
+<tr id="<%= dom_id student %>">
+  <td><strong><%= student.name %></strong></td>
+  <td><%= student.year_level %></td>
+  <td><%= student.program %></td>
+  <td><%= student.department&.name %></td>
+  <td><%= number_to_currency(student.tuitionFee || 0, unit: "₱") %></td>
+  <td><%= student.subjectsCount || 0 %></td>
+  <td><%= student.numberOfUnits || 0 %></td>
+  <td class="text-center">
+    <div class="btn-group btn-group-sm" role="group">
+      <%= link_to "Show", student, class: "btn btn-outline-info" %>
+      <%= link_to "Edit", edit_student_path(student), class: "btn btn-outline-warning" %>
+      <%= button_to "Destroy", student, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
+    </div>
+  </td>
+</tr>

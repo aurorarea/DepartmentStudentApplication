@@ -1,27 +1,14 @@
-<div id="<%= dom_id department %>">
-  <div>
-    <strong>Name:</strong>
-    <%= department.name %>
-  </div>
-
-  <div>
-    <strong>Location:</strong>
-    <%= department.location %>
-  </div>
-
-  <div>
-    <strong>Students Count:</strong>
-    <%= department.studentsCount%>
-  </div>
-
-  <div>
-    <strong>Teachers Count:</strong>
-    <%= department.teachersCount %>
-  </div>
-
-  <div>
-    <strong>Laboratory:</strong>
-    <%= department.laboratory %>
-  </div>
-
-</div>
+<tr id="<%= dom_id department %>">
+  <td><strong><%= department.name %></strong></td>
+  <td><%= department.location %></td>
+  <td><%= department.studentsCount || 0 %></td>
+  <td><%= department.teachersCount || 0 %></td>
+  <td><%= department.laboratory %></td>
+  <td class="text-center">
+    <div class="btn-group btn-group-sm" role="group">
+      <%= link_to "Show", department, class: "btn btn-outline-info" %>
+      <%= link_to "Edit", edit_department_path(department), class: "btn btn-outline-warning" %>
+      <%= button_to "Destroy", department, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
+    </div>
+  </td>
+</tr>
