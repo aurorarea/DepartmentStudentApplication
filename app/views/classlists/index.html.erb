@@ -1,16 +1,22 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Classlists" %>
-
-<h1>Classlists</h1>
-
-<div id="classlists">
-  <% @classlists.each do |classlist| %>
-    <%= render classlist %>
-    <p>
-      <%= link_to "Show this classlist", classlist %>
-    </p>
-  <% end %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Class Lists</h1>
+  <%= link_to "New classlist", new_classlist_path, class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New classlist", new_classlist_path %>
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle border">
+    <thead class="table-dark">
+      <tr>
+        <th>Student</th>
+        <th>Section</th>
+        <th>Subject</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @classlists.each do |classlist| %>
+        <%= render classlist %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

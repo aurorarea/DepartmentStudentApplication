@@ -1,12 +1,12 @@
-<div id="<%= dom_id classlist %>">
-  <div>
-    <strong>Student:</strong>
-    <%= classlist.student&.name %>
-  </div>
-
-  <div>
-    <strong>Section:</strong>
-    <%= classlist.section&.name %>
-  </div>
-
-</div>
+<tr id="<%= dom_id classlist %>">
+  <td><strong><%= classlist.student&.name %></strong></td>
+  <td><%= classlist.section&.name %></td>
+  <td><%= classlist.section&.subject&.name %></td>
+  <td class="text-center">
+    <div class="btn-group btn-group-sm" role="group">
+      <%= link_to "Show", classlist, class: "btn btn-outline-info" %>
+      <%= link_to "Edit", edit_classlist_path(classlist), class: "btn btn-outline-warning" %>
+      <%= button_to "Destroy", classlist, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
+    </div>
+  </td>
+</tr>
