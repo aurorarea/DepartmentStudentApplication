@@ -1,16 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Sections" %>
-
-<h1>Sections</h1>
-
-<div id="sections">
-  <% @sections.each do |section| %>
-    <%= render section %>
-    <p>
-      <%= link_to "Show this section", section %>
-    </p>
-  <% end %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Sections</h1>
+  <%= link_to "New section", new_section_path, class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New section", new_section_path %>
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle border">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Room</th>
+        <th>Timeslot</th>
+        <th>Subject</th>
+        <th>Students Count</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sections.each do |section| %>
+        <%= render section %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
