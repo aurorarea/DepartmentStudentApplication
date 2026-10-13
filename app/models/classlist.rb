@@ -32,57 +32,30 @@ class Classlist < ApplicationRecord
     old_section = Section.find_by(id: old_section_id)
 
     remove_subject_from(old_student, old_section.subject) if old_student && old_section&.subject
-<<<<<<< HEAD
-
-=======
->>>>>>> 13b64d180e91002feb38288ba3ddd68875a30bac
     add_subject_to(student, subject) if student && subject
   end
 
   def add_subject_to(a_student, a_subject)
     a_student.reload
 
-    units = a_subject.respond_to?(:numberOfUnits) && a_subject.numberOfUnits.present? ? a_subject.numberOfUnits : 3
+    units = a_subject.respond_to?(:numberOfUnits) && a_subject.numberOfUnits.present? ? a_subject.numberOfUnits : 0
     rate = a_subject.teacher&.perUnitRate || 0.0
 
-<<<<<<< HEAD
     a_student.subjectsCount = (a_student.subjectsCount || 0) + 1
-    a_student.numberOfUnits = (a_student.numberOfUnits || 0) + units
-    a_student.tuitionFee    = (a_student.tuitionFee || 0.0) + (units * rate)
-=======
-    if teacher = a_subject.teacher
-      current_salary = teacher.monthlySalary || 0.0
-      teacher.update_column(:monthlySalary, current_salary + (units * rate))
-    end
-
-    a_student.subjectsCount = (a_student.subjectsCount || 0) + 1
-    a_student.numberOfUnits = (a_student.numberOfUnits || 0) + units
-    a_student.tuitionFee   = (a_student.tuitionFee || 0.0) + (units * rate)
->>>>>>> 13b64d180e91002feb38288ba3ddd68875a30bac
+    a_student.numberofUnits = (a_student.numberofUnits || 0) + units
+    a_student.tuitionFee = (a_student.tuitionFee || 0.0) + (units * rate)
     a_student.save!
   end
 
   def remove_subject_from(a_student, a_subject)
     a_student.reload
 
-    units = a_subject.respond_to?(:numberOfUnits) && a_subject.numberOfUnits.present? ? a_subject.numberOfUnits : 3
+    units = a_subject.respond_to?(:numberOfUnits) && a_subject.numberOfUnits.present? ? a_subject.numberOfUnits : 0
     rate = a_subject.teacher&.perUnitRate || 0.0
 
-<<<<<<< HEAD
     a_student.subjectsCount = [ (a_student.subjectsCount || 0) - 1, 0 ].max
-    a_student.numberOfUnits = [ (a_student.numberOfUnits || 0) - units, 0 ].max
-    a_student.tuitionFee    = [ (a_student.tuitionFee || 0.0) - (units * rate), 0.0 ].max
-=======
-    if teacher = a_subject.teacher
-      current_salary = teacher.monthlySalary || 0.0
-      new_salary = [ current_salary - (units * rate), 0.0 ].max
-      teacher.update_column(:monthlySalary, new_salary)
-    end
-
-    a_student.subjectsCount = [ (a_student.subjectsCount || 0) - 1, 0 ].max
-    a_student.numberOfUnits = [ (a_student.numberOfUnits || 0) - units, 0 ].max
-    a_student.tuitionFee   = [ (a_student.tuitionFee || 0.0) - (units * rate), 0.0 ].max
->>>>>>> 13b64d180e91002feb38288ba3ddd68875a30bac
+    a_student.numberofUnits = [ (a_student.numberofUnits || 0) - units, 0 ].max
+    a_student.tuitionFee = [ (a_student.tuitionFee || 0.0) - (units * rate), 0.0 ].max
     a_student.save!
   end
 end

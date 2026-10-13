@@ -1,41 +1,54 @@
-<p>
-  <strong>Name:</strong> <%= @subject.name %><br>
-  <strong>Teacher:</strong> <%= @subject.teacher&.name %>
-</p>
+<% content_for :title, @subject.name %>
 
-<h3>Sections</h3>
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h2 mb-1 fw-bold"><%= @subject.name %></h1>
+    <p class="text-muted mb-0">Subject Details</p>
+  </div>
+  <div class="d-flex gap-2">
+    <%= link_to "Edit", edit_subject_path(@subject), class: "btn btn-secondary" %>
+    <%= link_to "Back to Subjects", subjects_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>
 
-<% @subject.sections.each do |section| %>
-  <p>
-    <strong><%= section.name %></strong></p>
-    Room: <%= section.room %> | Timeslot: <%= section.timeslot %> | Teacher: <%= @subject.teacher&.name %>
-  </p>
-
-  <% if section.classlists.any? %>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Year Level</th>
-          <th>Program</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% section.classlists.each do |classlist| %>
+<!-- Subject Sections Card & Table -->
+<div class="card border-0 shadow-sm">
+  <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+    <h6 class="card-title mb-0 fw-bold text-secondary">Associated Sections</h6>
+    <span class="badge bg-secondary rounded-pill"><%= @subject.sections.count rescue @subject.sectionCount %></span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
           <tr>
-            <td><%= classlist.student&.name %></td>
-            <td><%= classlist.student&.year_level %></td>
-            <td><%= classlist.student&.program %></td>
+            <th class="ps-4">Section Name</th>
+            <th>Room</th>
+            <th>Timeslot</th>
+            <th>Students Count</th>
+            <th class="text-end pe-4">Actions</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p>No students enrolled in this section.</p>
-  <% end %>
-<% end %>
-
-<div>
-  <%= link_to "Edit this subject", edit_subject_path(@subject) %> |
-  <%= link_to "Back to subjects", subjects_path %>
+        </thead>
+        <tbody>
+          <% if @subject.sections.any? %>
+            <% @subject.sections.each do |section| %>
+              <tr>
+                <td class="ps-4 fw-semibold"><%= section.name %></td>
+                <td><%= section.room %></td>
+                <td><%= section.timeslot %></td>
+                <td><%= section.students.count rescue section.studentsCount %></td>
+                <td class="text-end pe-4">
+                  <%= link_to "Show", section_path(section), class: "btn btn-sm btn-outline-primary" %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5" class="text-center py-4 text-muted">No sections associated with this subject.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
