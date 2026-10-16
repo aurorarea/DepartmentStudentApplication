@@ -2,28 +2,22 @@ class Subject < ApplicationRecord
   belongs_to :teacher
   has_many :sections, dependent: :destroy
 
-  after_create :update_teacher_salary_on_add
-  after_destroy :update_teacher_salary_on_remove
+  after_create :update_teacher_salary
+  after_destroy :update_teacher_salary
 
   private
 
-  def update_teacher_salary_on_add
-    return unless teacher && teacher.perUnitRate && self.attributes["numberOfUnits"]
+  def update_teacher_salary
+    return unless teacher && teacher.perUnitRate
 
     teacher.reload
-    current_salary = teacher.monthlySalary || 0.0
-    added_earnings = self.attributes["numberOfUnits"] * teacher.perUnitRate
 
-    teacher.update_column(:monthlySalary, current_salary + added_earnings)
-  end
+    # Calculate total units of all students enrolled in all sections of this subject
+    total_student_units = sections.joins(classlists: :student).sum("students.numberOfUnits")
 
-  def update_teacher_salary_on_remove
-    return unless teacher && teacher.perUnitRate && self.attributes["numberOfUnits"]
+    # Or compute salary based on your course/student unit rate formula
+    new_salary = total_student_units * teacher.perUnitRate
 
-    teacher.reload
-    current_salary = teacher.monthlySalary || 0.0
-    deducted_earnings = self.attributes["numberOfUnits"] * teacher.perUnitRate
-
-    teacher.update_column(:monthlySalary, [ current_salary - deducted_earnings, 0.0 ].max)
+    teacher.update_column(:monthlySalary, new_salary)
   end
 end

@@ -38,11 +38,11 @@ class Classlist < ApplicationRecord
   def add_subject_to(a_student, a_subject)
     a_student.reload
 
-    units = a_subject.respond_to?(:numberOfUnits) && a_subject.numberOfUnits.present? ? a_subject.numberOfUnits : 0
+    units = a_subject.respond_to?(:numberOfUnits) && a_subject.numberOfUnits.present? ? a_subject.numberOfUnits : 3
     rate = a_subject.teacher&.perUnitRate || 0.0
 
     a_student.subjectsCount = (a_student.subjectsCount || 0) + 1
-    a_student.numberofUnits = (a_student.numberofUnits || 0) + units
+    a_student.numberOfUnits = (a_student.numberOfUnits || 0) + units
     a_student.tuitionFee = (a_student.tuitionFee || 0.0) + (units * rate)
     a_student.save!
   end
@@ -50,11 +50,11 @@ class Classlist < ApplicationRecord
   def remove_subject_from(a_student, a_subject)
     a_student.reload
 
-    units = a_subject.respond_to?(:numberOfUnits) && a_subject.numberOfUnits.present? ? a_subject.numberOfUnits : 0
+    units = a_subject.respond_to?(:numberOfUnits) && a_subject.numberOfUnits.present? ? a_subject.numberOfUnits : 3
     rate = a_subject.teacher&.perUnitRate || 0.0
 
     a_student.subjectsCount = [ (a_student.subjectsCount || 0) - 1, 0 ].max
-    a_student.numberofUnits = [ (a_student.numberofUnits || 0) - units, 0 ].max
+    a_student.numberOfUnits = [ (a_student.numberOfUnits || 0) - units, 0 ].max
     a_student.tuitionFee = [ (a_student.tuitionFee || 0.0) - (units * rate), 0.0 ].max
     a_student.save!
   end
