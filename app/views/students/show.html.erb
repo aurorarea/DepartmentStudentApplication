@@ -94,7 +94,11 @@
         </thead>
         <tbody>
           <% if @student.classlists.any? %>
+<<<<<<< HEAD
+            <% @student.classlists.includes(section: [:subject, :teacher]).each do |classlist| %>
+=======
             <% @student.classlists.includes(section: { subject: :teacher }).each do |classlist| %>
+>>>>>>> b134714e4d122235ced02b5fcdd5da42e3b1fa05
               <tr>
                 <td class="ps-4 fw-semibold"><%= classlist.section&.subject&.name %></td>
                 <td><%= classlist.section&.name %></td>
