@@ -1,71 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= content_for(:title) || "Department Student Application" %></title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>Department Student Application</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <!-- Bootstrap 5 CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_importmap_tags %>
-</head>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
 
-<body>
-  <!-- Top Bar with ONLY the Hamburger Toggle Button -->
-  <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
-    <div class="container-fluid justify-content-end">
-      <!-- Toggle button that opens the offcanvas sidebar -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <body style="background-color: #f8fafc;">
+    <!-- Top Navbar with rich dark slate tone -->
+    <nav class="navbar navbar-dark px-4 py-3 shadow-sm border-bottom border-secondary border-opacity-25" style="background-color: #0f172a !important;">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold fs-4 text-white d-flex align-items-center gap-2" href="<%= root_path %>">
+          <span class="badge bg-primary rounded-pill px-3 py-2 fs-6">DSA</span> Department Student App
+        </a>
+        
+        <!-- Hamburger Menu Button -->
+        <button class="navbar-toggler border-0 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarDrawer" aria-controls="sidebarDrawer" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon" style="width: 1.8rem; height: 1.8rem;"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Slide-out Left Sidebar Drawer -->
+    <div class="offcanvas offcanvas-start text-white shadow-lg" tabindex="-1" id="sidebarDrawer" aria-labelledby="sidebarDrawerLabel" style="width: 300px; background-color: #0f172a !important;">
+      <div class="offcanvas-header border-bottom border-secondary border-opacity-25 px-4 py-4">
+        <h5 class="offcanvas-title fw-bold fs-4 text-white" id="sidebarDrawerLabel">Navigation Menu</h5>
+        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body px-4 py-4">
+        <ul class="nav flex-column gap-2 fs-5">
+          <li class="nav-item"><%= link_to "Home", root_path, class: "nav-link text-white px-3 py-2 rounded-3 bg-primary bg-opacity-25 fw-semibold" %></li>
+          <li class="nav-item"><%= link_to "Students", students_path, class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
+          <li class="nav-item"><%= link_to "Departments", departments_path, class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
+          <li class="nav-item"><%= link_to "Teachers", teachers_path, class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
+          <li class="nav-item"><%= link_to "Subjects", subjects_path, class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
+          <li class="nav-item"><%= link_to "Sections", "#", class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
+          <li class="nav-item"><%= link_to "Class Lists", "#", class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
+        </ul>
+      </div>
     </div>
-  </nav>
 
- <!-- Toggleable Offcanvas Sidebar (Slides from Left) -->
-  <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
-    <div class="offcanvas-header">
-      <!-- "Department Student App" title-->
-      <h5 class="offcanvas-title" id="offcanvasSidebarLabel">
-        <%= link_to "Department Student App", root_path, class: "text-white text-decoration-none fw-bold fs-5" %>
-      </h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul class="nav flex-column px-2">
-        <li class="nav-item mb-1">
-          <%= link_to "Home", root_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(students_path)}" %>
-        </li>
-        <li class="nav-item mb-1">
-          <%= link_to "Students", students_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(students_path)}" %>
-        </li>
-        <li class="nav-item mb-1">
-          <%= link_to "Departments", departments_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(departments_path)}" %>
-        </li>
-        <li class="nav-item mb-1">
-          <%= link_to "Teachers", teachers_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(teachers_path)}" %>
-        </li>
-        <li class="nav-item mb-1">
-          <%= link_to "Subjects", subjects_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(subjects_path)}" %>
-        </li>
-        <li class="nav-item mb-1">
-          <%= link_to "Sections", sections_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(sections_path)}" %>
-        </li>
-        <li class="nav-item mb-1">
-          <%= link_to "Class Lists", classlists_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(classlists_path)}" %>
-        </li>
-      </ul>
-    </div>
-  </div>
+    <!-- Main content wrapper -->
+    <main class="w-100">
+      <%= yield %>
+    </main>
 
-  <!-- Main Content Area -->
-  <main class="container py-5 mt-4">
-    <%= yield %>
-  </main>
-
-  <!-- Bootstrap 5 JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
+    <!-- Bootstrap 5 JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

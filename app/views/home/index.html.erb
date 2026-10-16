@@ -1,114 +1,152 @@
-<div class="p-5 mb-4 bg-body-tertiary rounded-3">
-  <h1 class="display-5 fw-bold">Department Student Directory</h1>
-  <p class="lead">Explore the people, programs, and academic structure of the department.</p>
-
-  <div class="d-flex gap-2">
-    <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg" %>
-    <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-secondary btn-lg" %>
-  </div>
-</div>
-
-<h2 class="h4 mb-3">Explore the Directory</h2>
-
-<!-- Explore cards row including Departments, Students, Teachers, and Subjects -->
-<div class="row g-3 mb-4">
-  <div class="col-sm-6 col-lg-4">
-    <div class="card h-100">
-      <div class="card-body">
-        <h3 class="card-title h5">Departments</h3>
-        <p class="card-text text-body-secondary">Offices and where to find them.</p>
-        <%= link_to "View all", departments_path, class: "btn btn-sm btn-primary" %>
-        <%= link_to "Add new", new_department_path, class: "btn btn-sm btn-outline-secondary" %>
-      </div>
+<div class="container-fluid px-4 py-4 d-flex flex-column" style="min-height: 92vh;">
+  <!-- Top Header / Welcome Banner -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 bg-white p-4 rounded-4 shadow-sm border-start border-primary border-5">
+    <div>
+      <h1 class="display-5 fw-bold text-dark mb-2">Dashboard</h1>
+      <p class="fs-4 text-muted mb-0">Overview of your department's academic structure and directory.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-3">
+      <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg px-4 py-3 fs-5 shadow-sm" %>
+      <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-dark btn-lg px-4 py-3 fs-5" %>
     </div>
   </div>
 
-  <div class="col-sm-6 col-lg-4">
-    <div class="card h-100">
-      <div class="card-body">
-        <h3 class="card-title h5">Students</h3>
-        <p class="card-text small text-body-secondary">Everyone enrolled in the department.</p>
-        <%= link_to "View all", students_path, class: "btn btn-sm btn-primary" %>
-        <%= link_to "Add new", new_student_path, class: "btn btn-sm btn-outline-secondary" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6 col-lg-4">
-    <div class="card h-100">
-      <div class="card-body">
-        <h3 class="card-title h5">Teachers</h3>
-        <p class="card-text text-body-secondary">The faculty and what they teach.</p>
-        <%= link_to "View all", teachers_path, class: "btn btn-sm btn-primary" %>
-        <%= link_to "Add new", new_teacher_path, class: "btn btn-sm btn-outline-secondary" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6 col-lg-4">
-    <div class="card h-100">
-      <div class="card-body">
-        <h3 class="card-title h5">Subjects</h3>
-        <p class="card-text text-body-secondary">Courses and curriculum offerings.</p>
-        <%= link_to "View all", subjects_path, class: "btn btn-sm btn-primary" %>
-        <%= link_to "Add new", new_subject_path, class: "btn btn-sm btn-outline-secondary" %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<h2 class="h4 mb-3">Directory Overview</h2>
-
-<div class="row g-3 mb-4">
-  <div class="col-6 col-md-4 col-xl-2">
-    <div class="card text-center h-100">
-      <div class="card-body">
-        <div class="display-6 fw-bold"><%= @student_count %></div>
-        <div class="text-body-secondary">Students</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-6 col-md-4 col-xl-2">
-    <div class="card text-center h-100">
-      <div class="card-body">
-        <div class="display-6 fw-bold"><%= @teacher_count %></div>
-        <div class="text-body-secondary">Teachers</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-6 col-md-4 col-xl-2">
-    <div class="card text-center h-100">
-      <div class="card-body">
-        <div class="display-6 fw-bold"><%= @department_count %></div>
-        <div class="text-body-secondary">Departments</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<h2 class="h4 mb-3">Meet Our Faculty</h2>
- 
-<div class="row g-3 mb-4">
-  <% @teachers.each do |teacher| %>
-    <div class="col-sm-6 col-lg-4">
-      <div class="card h-100 text-center">
-        <div class="card-body">
-          <% avatar_files = ["images (1).jpeg", "images (2).jpeg", "images (3).jpeg", "images (4).jpeg", "images (5).jpeg", "images (6).jpeg"] %>
-          <% assigned_avatar = avatar_files[teacher.id % avatar_files.length] %>
-
-          <%= image_tag assigned_avatar, alt: teacher.name, width: 96, height: 96, class: "rounded-circle mb-3" %>
-          <h3 class="card-title h5"><%= teacher.name %></h3>
-          <p class="card-text text-body-secondary"><%= teacher.specialization %></p>
-          
-          <p class="card-text small text-body-secondary mb-3"><%= teacher.department.name %></p>
-          
-          <%= link_to "View profile", teacher, class: "btn btn-sm btn-outline-primary" %>
+  <!-- Metric Summary Cards Row with Rich Gradients/Tints -->
+  <div class="row g-4 mb-4">
+    <div class="col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100 border-start border-primary border-5" style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+        <div class="card-body py-4">
+          <div class="text-uppercase text-primary fw-bold mb-2 fs-5">Students</div>
+          <div class="display-3 fw-bold mb-0 text-primary"><%= @student_count %></div>
         </div>
       </div>
     </div>
-  <% end %>
-</div>
 
-<%= link_to "See all faculty ->", teachers_path, class: "btn btn-link px-0" %>
+    <div class="col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100 border-start border-info border-5" style="background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);">
+        <div class="card-body py-4">
+          <div class="text-uppercase text-info fw-bold mb-2 fs-5">Teachers</div>
+          <div class="display-3 fw-bold mb-0 text-info"><%= @teacher_count %></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100 border-start border-warning border-5" style="background: linear-gradient(135deg, #fffbeb55 0%, #fef3c7 100%);">
+        <div class="card-body py-4">
+          <div class="text-uppercase text-warning-emphasis fw-bold mb-2 fs-5">Departments</div>
+          <div class="display-3 fw-bold mb-0 text-dark"><%= @department_count %></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100 border-start border-success border-5" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
+        <div class="card-body py-4">
+          <div class="text-uppercase text-success fw-bold mb-2 fs-5">Active Status</div>
+          <div class="display-3 fw-bold mb-0 text-success">Online</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Split Grid -->
+  <div class="row g-4 flex-fill">
+    <!-- Left Column: Explore Directory Cards -->
+    <div class="col-lg-7 d-flex flex-column">
+      <h2 class="display-6 fw-bold mb-3 text-secondary">Explore the Directory</h2>
+      <div class="row g-4 flex-fill">
+        <div class="col-sm-6 d-flex">
+          <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-primary border-4">
+            <div class="card-body d-flex flex-column justify-content-between p-4">
+              <div>
+                <h3 class="card-title display-6 fw-bold mb-3 text-primary">Departments</h3>
+                <p class="card-text text-muted fs-5 mb-0">Offices and locations.</p>
+              </div>
+              <div class="d-flex gap-3 mt-4">
+                <%= link_to "View all", departments_path, class: "btn btn-primary btn-lg px-4 fs-5 shadow-sm" %>
+                <%= link_to "Add new", new_department_path, class: "btn btn-outline-primary btn-lg px-4 fs-5" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex">
+          <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-info border-4">
+            <div class="card-body d-flex flex-column justify-content-between p-4">
+              <div>
+                <h3 class="card-title display-6 fw-bold mb-3 text-info">Students</h3>
+                <p class="card-text text-muted fs-5 mb-0">Enrolled students list.</p>
+              </div>
+              <div class="d-flex gap-3 mt-4">
+                <%= link_to "View all", students_path, class: "btn btn-info btn-lg px-4 fs-5 text-white shadow-sm" %>
+                <%= link_to "Add new", new_student_path, class: "btn btn-outline-info btn-lg px-4 fs-5" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex">
+          <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-warning border-4">
+            <div class="card-body d-flex flex-column justify-content-between p-4">
+              <div>
+                <h3 class="card-title display-6 fw-bold mb-3 text-dark">Teachers</h3>
+                <p class="card-text text-muted fs-5 mb-0">Faculty and courses.</p>
+              </div>
+              <div class="d-flex gap-3 mt-4">
+                <%= link_to "View all", teachers_path, class: "btn btn-warning btn-lg px-4 fs-5 text-dark fw-bold shadow-sm" %>
+                <%= link_to "Add new", new_teacher_path, class: "btn btn-outline-warning btn-lg px-4 fs-5 text-dark" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex">
+          <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-success border-4">
+            <div class="card-body d-flex flex-column justify-content-between p-4">
+              <div>
+                <h3 class="card-title display-6 fw-bold mb-3 text-success">Subjects</h3>
+                <p class="card-text text-muted fs-5 mb-0">Curriculum and subjects.</p>
+              </div>
+              <div class="d-flex gap-3 mt-4">
+                <%= link_to "View all", subjects_path, class: "btn btn-success btn-lg px-4 fs-5 text-white shadow-sm" %>
+                <%= link_to "Add new", new_subject_path, class: "btn btn-outline-success btn-lg px-4 fs-5" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Meet Our Faculty -->
+    <div class="col-lg-5 d-flex flex-column">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="display-6 fw-bold mb-0 text-secondary">Meet Our Faculty</h2>
+        <%= link_to "See all ->", teachers_path, class: "fs-4 text-decoration-none fw-bold text-primary" %>
+      </div>
+
+      <div class="card border-0 shadow-sm flex-fill w-100 bg-white border-top border-dark border-4">
+        <div class="card-body d-flex flex-column justify-content-between p-4 h-100">
+          <div class="list-group list-group-flush w-100 flex-fill d-flex flex-column justify-content-around">
+            <% @teachers.each do |teacher| %>
+              <div class="list-group-item px-0 py-4 d-flex align-items-center justify-content-between bg-transparent border-bottom">
+                <div class="d-flex align-items-center gap-4">
+                  <% avatar_files = ["images (1).jpeg", "images (2).jpeg", "images (3).jpeg", "images (4).jpeg", "images (5).jpeg", "images (6).jpeg"] %>
+                  <% assigned_avatar = avatar_files[teacher.id % avatar_files.length] %>
+                  <%= image_tag assigned_avatar, alt: teacher.name, width: 80, height: 80, class: "rounded-circle object-fit-cover shadow border border-2 border-primary" %>
+                  <div>
+                    <h4 class="mb-1 fw-bold text-dark"><%= teacher.name %></h4>
+                    <span class="text-muted fs-5"><%= teacher.specialization %></span>
+                  </div>
+                </div>
+                <div>
+                  <%= link_to "Profile", teacher, class: "btn btn-outline-primary btn-lg px-4 fs-5 shadow-sm" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
