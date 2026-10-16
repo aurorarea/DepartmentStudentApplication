@@ -454,9 +454,3 @@ students.each do |student|
     Classlist.find_or_create_by!(student: student, section: section)
   end
 end
-
-Teacher.find_each do |teacher|
-  total_units = teacher.subjects.joins(sections: { classlists: :student }).sum("students.numberOfUnits")
-  salary = total_units * (teacher.perUnitRate || 0.0)
-  teacher.update_column(:monthlySalary, salary)
-end
