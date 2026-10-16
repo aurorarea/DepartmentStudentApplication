@@ -32,6 +32,22 @@ t2 = Teacher.find_or_create_by!(name: "Robert Downey") do |t|
   t.perUnitRate = 2500
 end
 
+# 2T
+t3 = Teacher.find_or_create_by!(name: "Mwaynia Brass") do |t|
+  t.specialization = "Microcontrollers"
+  t.email = "mbrass@adnu.com"
+  t.department = ECE_CPE
+  t.perUnitRate = 2500
+end
+
+# 2T
+t4 = Teacher.find_or_create_by!(name: "Khaki Difes") do |t|
+  t.specialization = "Networks and Communications"
+  t.email = "rdowney@adnu.com"
+  t.department = ComSci
+  t.perUnitRate = 2500
+end
+
 # 5T
 t5 = Teacher.find_or_create_by!(name: "Thaya Mihathi") do |t|
   t.specialization = "CyberSecurity and Ethical Hacking"
@@ -437,4 +453,10 @@ students.each do |student|
   sections.sample(4).each do |section|
     Classlist.find_or_create_by!(student: student, section: section)
   end
+end
+
+Teacher.find_each do |teacher|
+  total_units = teacher.subjects.joins(sections: { classlists: :student }).sum("students.numberOfUnits")
+  salary = total_units * (teacher.perUnitRate || 0.0)
+  teacher.update_column(:monthlySalary, salary)
 end
