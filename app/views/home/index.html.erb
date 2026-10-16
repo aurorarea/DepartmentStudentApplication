@@ -3,10 +3,12 @@
   <p class="lead">Explore the people, programs, and academic structure of the department.</p>
 
   <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg" %>
+  <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-secondary btn-lg ms-2" %>
 </div>
 
 <h2 class="h4 mb-3">Explore the Directory</h2>
 
+<!-- Task 2: Students card added into the same row as Departments -->
 <div class="row g-3 mb-4">
   <div class="col-sm-6 col-lg-4">
     <div class="card h-100">
@@ -18,16 +20,37 @@
       </div>
     </div>
   </div>
+
+  <div class="col-sm-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h3 class="card-title h5">Students</h3>
+        <p class="card-text small text-body-secondary">Everyone enrolled in the department.</p>
+        <%= link_to "View all", students_path, class: "btn btn-sm btn-primary" %>
+        <%= link_to "Add new", new_student_path, class: "btn btn-sm btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <h2 class="h4 mb-3">Directory Overview</h2>
 
+<!-- Task 3: Teachers count box added into the overview row -->
 <div class="row g-3 mb-4">
   <div class="col-6 col-md-4 col-xl-2">
     <div class="card text-center h-100">
       <div class="card-body">
         <div class="display-6 fw-bold"><%= @student_count %></div>
         <div class="text-body-secondary">Students</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6 col-md-4 col-xl-2">
+    <div class="card text-center h-100">
+      <div class="card-body">
+        <div class="display-6 fw-bold"><%= @teacher_count %></div>
+        <div class="text-body-secondary">Teachers</div>
       </div>
     </div>
   </div>
@@ -41,11 +64,14 @@
       <div class="card h-100 text-center">
         <div class="card-body">
           <% avatar_files = ["images (1).jpeg", "images (2).jpeg", "images (3).jpeg", "images (4).jpeg", "images (5).jpeg", "images (6).jpeg"] %>
-<% assigned_avatar = avatar_files[teacher.id % avatar_files.length] %>
+          <% assigned_avatar = avatar_files[teacher.id % avatar_files.length] %>
 
-<%= image_tag assigned_avatar, alt: teacher.name, width: 96, height: 96, class: "rounded-circle mb-3" %>
+          <%= image_tag assigned_avatar, alt: teacher.name, width: 96, height: 96, class: "rounded-circle mb-3" %>
           <h3 class="card-title h5"><%= teacher.name %></h3>
           <p class="card-text text-body-secondary"><%= teacher.specialization %></p>
+          
+          <!-- Task 4: Department name displayed under specialization -->
+          <p class="card-text small text-body-secondary"><%= teacher.department.name %></p>
         </div>
       </div>
     </div>
