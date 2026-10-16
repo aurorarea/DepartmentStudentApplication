@@ -2,7 +2,6 @@
   <h1 class="display-5 fw-bold">Department Student Directory</h1>
   <p class="lead">Explore the people, programs, and academic structure of the department.</p>
 
-  <!-- Task 5: Button spacing container -->
   <div class="d-flex gap-2">
     <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg" %>
     <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-secondary btn-lg" %>
@@ -11,7 +10,7 @@
 
 <h2 class="h4 mb-3">Explore the Directory</h2>
 
-<!-- Task 2 & 6: Explore cards row including Departments, Students, and Teachers -->
+<!-- Explore cards row including Departments, Students, Teachers, and Subjects -->
 <div class="row g-3 mb-4">
   <div class="col-sm-6 col-lg-4">
     <div class="card h-100">
@@ -45,11 +44,21 @@
       </div>
     </div>
   </div>
+
+  <div class="col-sm-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h3 class="card-title h5">Subjects</h3>
+        <p class="card-text text-body-secondary">Courses and curriculum offerings.</p>
+        <%= link_to "View all", subjects_path, class: "btn btn-sm btn-primary" %>
+        <%= link_to "Add new", new_subject_path, class: "btn btn-sm btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <h2 class="h4 mb-3">Directory Overview</h2>
 
-<!-- Task 3 & 7: Overview row with Student, Teacher, and Department counts -->
 <div class="row g-3 mb-4">
   <div class="col-6 col-md-4 col-xl-2">
     <div class="card text-center h-100">
@@ -93,10 +102,8 @@
           <h3 class="card-title h5"><%= teacher.name %></h3>
           <p class="card-text text-body-secondary"><%= teacher.specialization %></p>
           
-          <!-- Task 4: Department name displayed under specialization -->
           <p class="card-text small text-body-secondary mb-3"><%= teacher.department.name %></p>
           
-          <!-- Task 8: View profile link inside each card -->
           <%= link_to "View profile", teacher, class: "btn btn-sm btn-outline-primary" %>
         </div>
       </div>
@@ -104,5 +111,4 @@
   <% end %>
 </div>
 
-<!-- Task 8: See all faculty link under the row -->
 <%= link_to "See all faculty ->", teachers_path, class: "btn btn-link px-0" %>
