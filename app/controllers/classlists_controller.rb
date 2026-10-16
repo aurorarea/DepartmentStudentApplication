@@ -8,6 +8,8 @@ class ClasslistsController < ApplicationController
 
   # GET /classlists/1 or /classlists/1.json
   def show
+    @classlist = Classlist.find(params[:id])
+    @sections = Section.includes(classlists: :student) # Add this line so @sections is not nil
   end
 
   # GET /classlists/new
