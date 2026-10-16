@@ -3,6 +3,7 @@ class HomeController < ApplicationController
     @student_count = Student.count
     @teacher_count = Teacher.count
     @department_count = Department.count
+    @subject_count = Subject.count
     @teachers = Teacher.order(:name).limit(3)
   end
 end

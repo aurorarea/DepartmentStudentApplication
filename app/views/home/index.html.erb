@@ -1,14 +1,26 @@
-<div class="container-fluid px-4 py-4 d-flex flex-column" style="min-height: 92vh;">
-  <!-- Top Header / Welcome Banner -->
-  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 bg-white p-4 rounded-4 shadow-sm border-start border-primary border-5">
+<div class="p-4 mb-4 bg-white rounded-3 shadow-sm">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <!-- Left side: Dashboard Title -->
     <div>
-      <h1 class="display-5 fw-bold text-dark mb-2">Dashboard</h1>
-      <p class="fs-4 text-muted mb-0">Overview of your department's academic structure and directory.</p>
+      <h1 class="display-6 fw-bold text-dark mb-1">Dashboard</h1>
+      <p class="text-muted mb-0">Overview of your department's academic structure and directory.</p>
     </div>
-    <div class="d-flex flex-wrap gap-3">
-      <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg px-4 py-3 fs-5 shadow-sm" %>
-      <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-dark btn-lg px-4 py-3 fs-5" %>
+
+    <!-- Search Bar -->
+    <div class="d-flex align-items-center gap-2">
+      <%= link_to students_path, class: "glossy-search-pill text-decoration-none d-flex align-items-center px-3 py-2" do %>
+        <i class="bi bi-search me-2 text-white-50 small"></i>
+        <span class="search-text text-white fw-medium small">Browse Students</span>
+      <% end %>
+
+      <%= link_to teachers_path, class: "glossy-search-pill text-decoration-none d-flex align-items-center px-3 py-2" do %>
+        <i class="bi bi-search me-2 text-white-50 small"></i>
+        <span class="search-text text-white fw-medium small">Browse Teachers</span>
+      <% end %>
     </div>
+  </div>
+
+  <div class="p-4 mb-20">
   </div>
 
   <!-- Metric Summary Cards Row with Rich Gradients/Tints -->
@@ -43,11 +55,14 @@
     <div class="col-sm-6 col-xl-3">
       <div class="card border-0 shadow-sm h-100 border-start border-success border-5" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
         <div class="card-body py-4">
-          <div class="text-uppercase text-success fw-bold mb-2 fs-5">Active Status</div>
-          <div class="display-3 fw-bold mb-0 text-success">Online</div>
+          <div class="text-uppercase text-warning-emphasis fw-bold mb-2 fs-5">Subjects</div>
+          <div class="display-3 fw-bold mb-0 text-success"><%= @subject_count %></div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="p-4 mb-40">
   </div>
 
   <!-- Main Content Split Grid -->
