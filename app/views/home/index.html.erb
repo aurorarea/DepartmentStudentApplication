@@ -2,13 +2,16 @@
   <h1 class="display-5 fw-bold">Department Student Directory</h1>
   <p class="lead">Explore the people, programs, and academic structure of the department.</p>
 
-  <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg" %>
-  <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-secondary btn-lg ms-2" %>
+  <!-- Task 5: Button spacing container -->
+  <div class="d-flex gap-2">
+    <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-secondary btn-lg" %>
+  </div>
 </div>
 
 <h2 class="h4 mb-3">Explore the Directory</h2>
 
-<!-- Task 2: Students card added into the same row as Departments -->
+<!-- Task 2 & 6: Explore cards row including Departments, Students, and Teachers -->
 <div class="row g-3 mb-4">
   <div class="col-sm-6 col-lg-4">
     <div class="card h-100">
@@ -31,11 +34,22 @@
       </div>
     </div>
   </div>
+
+  <div class="col-sm-6 col-lg-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h3 class="card-title h5">Teachers</h3>
+        <p class="card-text text-body-secondary">The faculty and what they teach.</p>
+        <%= link_to "View all", teachers_path, class: "btn btn-sm btn-primary" %>
+        <%= link_to "Add new", new_teacher_path, class: "btn btn-sm btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <h2 class="h4 mb-3">Directory Overview</h2>
 
-<!-- Task 3: Teachers count box added into the overview row -->
+<!-- Task 3 & 7: Overview row with Student, Teacher, and Department counts -->
 <div class="row g-3 mb-4">
   <div class="col-6 col-md-4 col-xl-2">
     <div class="card text-center h-100">
@@ -51,6 +65,15 @@
       <div class="card-body">
         <div class="display-6 fw-bold"><%= @teacher_count %></div>
         <div class="text-body-secondary">Teachers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6 col-md-4 col-xl-2">
+    <div class="card text-center h-100">
+      <div class="card-body">
+        <div class="display-6 fw-bold"><%= @department_count %></div>
+        <div class="text-body-secondary">Departments</div>
       </div>
     </div>
   </div>
@@ -71,9 +94,15 @@
           <p class="card-text text-body-secondary"><%= teacher.specialization %></p>
           
           <!-- Task 4: Department name displayed under specialization -->
-          <p class="card-text small text-body-secondary"><%= teacher.department.name %></p>
+          <p class="card-text small text-body-secondary mb-3"><%= teacher.department.name %></p>
+          
+          <!-- Task 8: View profile link inside each card -->
+          <%= link_to "View profile", teacher, class: "btn btn-sm btn-outline-primary" %>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
+<!-- Task 8: See all faculty link under the row -->
+<%= link_to "See all faculty ->", teachers_path, class: "btn btn-link px-0" %>
