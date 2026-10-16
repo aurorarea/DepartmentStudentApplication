@@ -27,14 +27,17 @@
  <!-- Toggleable Offcanvas Sidebar (Slides from Left) -->
   <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
     <div class="offcanvas-header">
-      <!-- "Department Student App" title moved here inside the sidebar -->
+      <!-- "Department Student App" title-->
       <h5 class="offcanvas-title" id="offcanvasSidebarLabel">
-        <%= link_to "Department Student App", students_path, class: "text-white text-decoration-none fw-bold fs-5" %>
+        <%= link_to "Department Student App", root_path, class: "text-white text-decoration-none fw-bold fs-5" %>
       </h5>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
       <ul class="nav flex-column px-2">
+        <li class="nav-item mb-1">
+          <%= link_to "Home", root_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(students_path)}" %>
+        </li>
         <li class="nav-item mb-1">
           <%= link_to "Students", students_path, class: "nav-link text-white rounded #{'active bg-primary' if current_page?(students_path)}" %>
         </li>
