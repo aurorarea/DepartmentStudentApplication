@@ -1,15 +1,113 @@
-<div class="container mt-4">
-  <% if notice.present? %>
-    <p class="alert alert-success" role="alert"><%= notice %></p>
-  <% end %>
+<% content_for :title, @teacher.name %>
 
-  <div class="mb-4">
-    <%= render @teacher %>
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<!-- Top Header with Actions -->
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h2 mb-1 fw-bold"><%= @teacher.name %></h1>
+    <p class="text-muted mb-0"><%= @teacher.specialization %></p>
+  </div>
+  <div class="d-flex gap-2">
+    <%= link_to "Edit", edit_teacher_path(@teacher), class: "btn btn-secondary" %>
+    <%= link_to "Back to Teachers", teachers_path, class: "btn btn-outline-secondary" %>
+    <%= button_to "Delete", @teacher, method: :delete, class: "btn btn-danger", data: { turbo_confirm: "Are you sure you want to delete this teacher?" } %>
+  </div>
+</div>
+
+<!-- Details & Summary Section -->
+<div class="row g-4 mb-4">
+  <!-- Teacher Details Card -->
+  <div class="col-md-6">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-header bg-light py-3">
+        <h6 class="card-title mb-0 fw-bold text-secondary">Teacher Details</h6>
+      </div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-5 text-muted fw-normal mb-2">Name</dt>
+          <dd class="col-7 fw-semibold mb-2"><%= @teacher.name %></dd>
+
+          <dt class="col-5 text-muted fw-normal mb-2">Email</dt>
+          <dd class="col-7 mb-2"><%= @teacher.email %></dd>
+
+          <dt class="col-5 text-muted fw-normal mb-2">Specialization</dt>
+          <dd class="col-7 mb-2"><%= @teacher.specialization %></dd>
+
+          <dt class="col-5 text-muted fw-normal mb-2">Department</dt>
+          <dd class="col-7 mb-0"><%= @teacher.department&.name || "N/A" %></dd>
+        </dl>
+      </div>
+    </div>
   </div>
 
-  <div class="d-flex gap-2">
-    <%= link_to "Edit this teacher", edit_teacher_path(@teacher), class: "btn btn-warning" %>
-    <%= link_to "Back to teachers", teachers_path, class: "btn btn-secondary" %>
-    <%= button_to "Destroy this teacher", @teacher, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <!-- Compensation Summary Card -->
+  <div class="col-md-6">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-header bg-light py-3">
+        <h6 class="card-title mb-0 fw-bold text-secondary">Compensation Summary</h6>
+      </div>
+      <div class="card-body d-flex align-items-center justify-content-around text-center">
+        <div>
+          <div class="display-6 fw-bold text-dark"><%= @teacher.subjects.count rescue 0 %></div>
+          <small class="text-muted fw-semibold">Subjects</small>
+        </div>
+        <div class="vr my-2"></div>
+        <div>
+          <div class="display-6 fw-bold text-dark"><%= number_to_currency(@teacher.perUnitRate || 0, unit: "₱") %></div>
+          <small class="text-muted fw-semibold">Per Unit Rate</small>
+        </div>
+        <div class="vr my-2"></div>
+        <div>
+          <div class="display-6 fw-bold text-dark"><%= number_to_currency(@teacher.monthlySalary || 0, unit: "₱") %></div>
+          <small class="text-muted fw-semibold">Monthly Salary</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Assigned Subjects Card & Table -->
+<div class="card border-0 shadow-sm">
+  <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+    <h6 class="card-title mb-0 fw-bold text-secondary">Assigned Subjects</h6>
+    <span class="badge bg-secondary rounded-pill"><%= @teacher.subjects.count rescue 0 %></span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-4">Subject</th>
+            <th>Units</th>
+            <th>Sections Count</th>
+            <th class="text-end pe-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @teacher.subjects.any? %>
+            <% @teacher.subjects.each do |subject| %>
+              <tr>
+                <td class="ps-4 fw-semibold"><%= subject.name %></td>
+                <td><%= subject.respond_to?(:numberOfUnits) ? subject.numberOfUnits : 3 %></td>
+                <td><%= subject.respond_to?(:sectionCount) ? subject.sectionCount : subject.sections.count %></td>
+                <td class="text-end pe-4">
+                  <%= link_to "Show", subject_path(subject), class: "btn btn-sm btn-outline-primary" %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4" class="text-center py-4 text-muted">No subjects assigned to this teacher yet.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
