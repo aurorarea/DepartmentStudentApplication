@@ -3,7 +3,7 @@ class SubjectsController < ApplicationController
 
   # GET /subjects or /subjects.json
   def index
-    @subjects = Subject.all
+    @pagy, @subjects= pagy(:offset, Subject.order(:name), limit: 10)
   end
 
   # GET /subjects/1 or /subjects/1.json

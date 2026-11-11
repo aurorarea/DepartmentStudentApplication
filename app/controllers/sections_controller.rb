@@ -3,7 +3,7 @@ class SectionsController < ApplicationController
 
   # GET /sections or /sections.json
   def index
-    @sections = Section.all
+    @pagy, @sections= pagy(:offset, Section.order(:name), limit: 10)
   end
 
   # GET /sections/1 or /sections/1.json

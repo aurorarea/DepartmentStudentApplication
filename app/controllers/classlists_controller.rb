@@ -4,6 +4,7 @@ class ClasslistsController < ApplicationController
   # GET /classlists or /classlists.json
   def index
     @classlists = Classlist.includes(:student, section: :subject).all
+    @pagy, @classlists= pagy(:offset, @classlists, limit: 10)
   end
 
   # GET /classlists/1 or /classlists/1.json

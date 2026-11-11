@@ -3,7 +3,7 @@ class TeachersController < ApplicationController
 
   # GET /teachers or /teachers.json
   def index
-    @teachers = Teacher.all
+    @pagy, @teachers= pagy(:offset, Teacher.order(:name), limit: 5)
   end
 
   # GET /teachers/1 or /teachers/1.json
