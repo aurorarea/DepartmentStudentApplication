@@ -3,7 +3,8 @@ class SectionsController < ApplicationController
 
   # GET /sections or /sections.json
   def index
-    @pagy, @sections= pagy(:offset, Section.order(:name), limit: 10)
+    @q = Section.ransack(params[:q])
+    @pagy, @sections= pagy(:offset, @q.result.order(:name), limit: 10)
   end
 
   # GET /sections/1 or /sections/1.json

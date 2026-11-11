@@ -3,7 +3,8 @@ class SubjectsController < ApplicationController
 
   # GET /subjects or /subjects.json
   def index
-    @pagy, @subjects= pagy(:offset, Subject.order(:name), limit: 10)
+    @q = Subject.ransack(params[:q])
+    @pagy, @subjects= pagy(:offset, @q.result.includes(:teacher).order(:name), limit: 10)
   end
 
   # GET /subjects/1 or /subjects/1.json

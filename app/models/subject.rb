@@ -10,4 +10,12 @@ class Subject < ApplicationRecord
   def recalculate_teacher_salary
     teacher&.update_monthly_salary!
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "name" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "teacher" ]
+  end
 end

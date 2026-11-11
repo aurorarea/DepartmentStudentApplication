@@ -42,10 +42,15 @@ gem "image_processing", "~> 1.2"
 
 # Gem1
 gem "pagy"
+# Gem2
+gem "ransack"
 
 group :development do
   gem "bullet"
 end
+
+
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -43,70 +43,68 @@
           </div>
         </div>
       </div>
-    </div>
   </section>
 
-  <!-- 2. Top Analytics Metrics Grid (4-Column Layout) -->
-  <section class="mb-4">
-    <div class="row g-3">
-      <!-- Card 1: Students -->
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="metric-stat-card">
-          <div class="metric-icon-box metric-icon-students shadow-xs">
-            <i class="bi bi-mortarboard-fill"></i>
-          </div>
-          <div class="metric-label">STUDENTS</div>
-          <div class="metric-count-row">
-            <span class="metric-count"><%= @student_count %></span>
-            <span class="metric-sublabel">Enrolled Total</span>
-          </div>
+<!-- 2. Top Analytics Metrics Grid (4-Column Layout) -->
+<section class="mb-4">
+  <div class="row g-2 g-md-3">
+    <!-- Card 1: Students -->
+    <div class="col-12 col-md-3">
+      <div class="metric-stat-card">
+        <div class="metric-icon-box metric-icon-students shadow-xs">
+          <i class="bi bi-mortarboard-fill"></i>
         </div>
-      </div>
-
-      <!-- Card 2: Teachers -->
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="metric-stat-card">
-          <div class="metric-icon-box metric-icon-teachers shadow-xs">
-            <i class="bi bi-person-video3"></i>
-          </div>
-          <div class="metric-label">TEACHERS</div>
-          <div class="metric-count-row">
-            <span class="metric-count"><%= @teacher_count %></span>
-            <span class="metric-sublabel">Faculty Members</span>
-          </div>
+        <div class="metric-label">STUDENTS</div>
+        <div class="metric-count-row">
+          <span class="metric-count"><%= @student_count %></span>
+          <span class="metric-sublabel">Enrolled Total</span>
         </div>
       </div>
     </div>
 
-      <!-- Card 3: Departments -->
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="metric-stat-card">
-          <div class="metric-icon-box metric-icon-departments shadow-xs">
-            <i class="bi bi-bank"></i>
-          </div>
-          <div class="metric-label">DEPARTMENTS</div>
-          <div class="metric-count-row">
-            <span class="metric-count"><%= @department_count %></span>
-            <span class="metric-sublabel">Academic Divisions</span>
-          </div>
+    <!-- Card 2: Teachers -->
+    <div class="col-12 col-md-3">
+      <div class="metric-stat-card">
+        <div class="metric-icon-box metric-icon-teachers shadow-xs">
+          <i class="bi bi-person-video3"></i>
         </div>
-      </div>
-
-      <!-- Card 4: Subjects -->
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="metric-stat-card">
-          <div class="metric-icon-box metric-icon-subjects shadow-xs">
-            <i class="bi bi-journal-text"></i>
-          </div>
-          <div class="metric-label">SUBJECTS</div>
-          <div class="metric-count-row">
-            <span class="metric-count"><%= @subject_count %></span>
-            <span class="metric-sublabel">Core Modules</span>
-          </div>
+        <div class="metric-label">TEACHERS</div>
+        <div class="metric-count-row">
+          <span class="metric-count"><%= @teacher_count %></span>
+          <span class="metric-sublabel">Faculty Members</span>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- Card 3: Departments -->
+    <div class="col-12 col-md-3">
+      <div class="metric-stat-card">
+        <div class="metric-icon-box metric-icon-departments shadow-xs">
+          <i class="bi bi-bank"></i>
+        </div>
+        <div class="metric-label">DEPARTMENTS</div>
+        <div class="metric-count-row">
+          <span class="metric-count"><%= @department_count %></span>
+          <span class="metric-sublabel">Academic Divisions</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Subjects -->
+    <div class="col-12 col-md-3">
+      <div class="metric-stat-card">
+        <div class="metric-icon-box metric-icon-subjects shadow-xs">
+          <i class="bi bi-journal-text"></i>
+        </div>
+        <div class="metric-label">SUBJECTS</div>
+        <div class="metric-count-row">
+          <span class="metric-count"><%= @subject_count %></span>
+          <span class="metric-sublabel">Core Modules</span>
+        </div>
+      </div>
+    </div>
+  </div> <!-- Closes row g-2 g-md-3 -->
+</section>
 
   <!-- 3. Main Body Grid (Asymmetric Split: ~65% Left / ~35% Right) -->
   <section>
