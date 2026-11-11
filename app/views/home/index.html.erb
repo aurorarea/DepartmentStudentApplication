@@ -1,20 +1,22 @@
-<div class="p-4 mb-4 bg-white rounded-3 shadow-sm">
-  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-    <!-- Left side: Dashboard Title -->
+ 
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4 pb-2">
     <div>
-      <h1 class="display-6 fw-bold text-dark mb-1">Dashboard</h1>
-      <p class="text-muted mb-0">Overview of your department's academic structure and directory.</p>
+      <h1 class="display-5 fw-extrabold text-dark tracking-tight mb-1" style="font-weight: 800; color: #0f172a;">
+        Dashboard
+      </h1>
+      <p class="fs-5 mb-0" style="color: #64748b; font-weight: 400;">
+        Explore the people, programs and academic structure of the Department
+      </p>
     </div>
 
-    <!-- Search Bar -->
     <div class="d-flex align-items-center gap-2">
       <%= link_to students_path, class: "glossy-search-pill text-decoration-none d-flex align-items-center px-3 py-2" do %>
-        <i class="bi bi-search me-2 text-white-50 small"></i>
+        <i class="bi bi-people-fill me-2 text-white-50"></i>
         <span class="search-text text-white fw-medium small">Browse Students</span>
       <% end %>
 
       <%= link_to teachers_path, class: "glossy-search-pill text-decoration-none d-flex align-items-center px-3 py-2" do %>
-        <i class="bi bi-search me-2 text-white-50 small"></i>
+        <i class="bi bi-person-badge-fill me-2 text-white-50"></i>
         <span class="search-text text-white fw-medium small">Browse Teachers</span>
       <% end %>
     </div>
@@ -23,44 +25,67 @@
   <div class="p-4 mb-20">
   </div>
 
-  <!-- Metric Summary Cards Row with Rich Gradients/Tints -->
-  <div class="row g-4 mb-4">
-    <div class="col-sm-6 col-xl-3">
-      <div class="card border-0 shadow-sm h-100 border-start border-primary border-5" style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
-        <div class="card-body py-4">
-          <div class="text-uppercase text-primary fw-bold mb-2 fs-5">Students</div>
-          <div class="display-3 fw-bold mb-0 text-primary"><%= @student_count %></div>
+  <!-- Dashboards counts -->
+  <div class="row g-3 mb-5">
+  <!-- Students Card -->
+  <div class="col-sm-6 col-xl-3">
+    <div class="card metric-pill bg-gradient-students text-white shadow-sm p-3">
+      <div class="d-flex align-items-center">
+        <div class="icon-circle me-3">
+          <i class="bi bi-people-fill fs-4 text-success"></i>
         </div>
-      </div>
-    </div>
-
-    <div class="col-sm-6 col-xl-3">
-      <div class="card border-0 shadow-sm h-100 border-start border-info border-5" style="background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);">
-        <div class="card-body py-4">
-          <div class="text-uppercase text-info fw-bold mb-2 fs-5">Teachers</div>
-          <div class="display-3 fw-bold mb-0 text-info"><%= @teacher_count %></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-6 col-xl-3">
-      <div class="card border-0 shadow-sm h-100 border-start border-warning border-5" style="background: linear-gradient(135deg, #fffbeb55 0%, #fef3c7 100%);">
-        <div class="card-body py-4">
-          <div class="text-uppercase text-warning-emphasis fw-bold mb-2 fs-5">Departments</div>
-          <div class="display-3 fw-bold mb-0 text-dark"><%= @department_count %></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-6 col-xl-3">
-      <div class="card border-0 shadow-sm h-100 border-start border-success border-5" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
-        <div class="card-body py-4">
-          <div class="text-uppercase text-warning-emphasis fw-bold mb-2 fs-5">Subjects</div>
-          <div class="display-3 fw-bold mb-0 text-success"><%= @subject_count %></div>
+        <div>
+          <div class="text-uppercase fw-semibold small opacity-75" style="letter-spacing: 0.5px;">Students</div>
+          <div class="fs-2 fw-bold leading-tight"><%= @student_count %></div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Teachers Card -->
+  <div class="col-sm-6 col-xl-3">
+    <div class="card metric-pill bg-gradient-teachers text-white shadow-sm p-3">
+      <div class="d-flex align-items-center">
+        <div class="icon-circle me-3">
+          <i class="bi bi-person-badge-fill fs-4 text-primary"></i>
+        </div>
+        <div>
+          <div class="text-uppercase fw-semibold small opacity-75" style="letter-spacing: 0.5px;">Teachers</div>
+          <div class="fs-2 fw-bold leading-tight"><%= @teacher_count %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Departments Card -->
+  <div class="col-sm-6 col-xl-3">
+    <div class="card metric-pill bg-gradient-departments text-white shadow-sm p-3">
+      <div class="d-flex align-items-center">
+        <div class="icon-circle me-3">
+          <i class="bi bi-building-fill fs-4 text-danger"></i>
+        </div>
+        <div>
+          <div class="text-uppercase fw-semibold small opacity-75" style="letter-spacing: 0.5px;">Departments</div>
+          <div class="fs-2 fw-bold leading-tight"><%= @department_count %></div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Subjects Card -->
+  <div class="col-sm-6 col-xl-3">
+    <div class="card metric-pill bg-gradient-subjects text-white shadow-sm p-3">
+      <div class="d-flex align-items-center">
+        <div class="icon-circle me-3">
+          <i class="bi bi-journal-bookmark-fill fs-4 text-warning"></i>
+        </div>
+        <div>
+          <div class="text-uppercase fw-semibold small opacity-75" style="letter-spacing: 0.5px;">Subjects</div>
+          <div class="fs-2 fw-bold leading-tight"><%= @subject_count %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   <div class="p-4 mb-40">
   </div>
@@ -68,8 +93,8 @@
   <!-- Main Content Split Grid -->
   <div class="row g-4 flex-fill">
     <!-- Left Column: Explore Directory Cards -->
-    <div class="col-lg-7 d-flex flex-column">
-      <h2 class="display-6 fw-bold mb-3 text-secondary">Explore the Directory</h2>
+    <div class="col-lg-8 d-flex flex-column">
+      <h2 class="display-6 fw-bold mb-3 section-title">Explore the Directory</h2>
       <div class="row g-4 flex-fill">
         <div class="col-sm-6 d-flex">
           <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-primary border-4">
@@ -134,10 +159,13 @@
     </div>
 
     <!-- Right Column: Meet Our Faculty -->
-    <div class="col-lg-5 d-flex flex-column">
+    <div class="col-lg-4 d-flex flex-column">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="display-6 fw-bold mb-0 text-secondary">Meet Our Faculty</h2>
-        <%= link_to "See all ->", teachers_path, class: "fs-4 text-decoration-none fw-bold text-primary" %>
+        <h2 class="display-6 fw-bold mb-0 section-title">Meet Our Faculty</h2>
+        <%= link_to teachers_path, class: "btn btn-sm btn-outline-primary rounded-pill px-3 py-1 d-inline-flex align-items-center gap-1 fw-semibold text-decoration-none" do %>
+          <span>See all</span>
+          <i class="bi bi-arrow-right"></i>
+        <% end %>
       </div>
 
       <div class="card border-0 shadow-sm flex-fill w-100 bg-white border-top border-dark border-4">
@@ -146,7 +174,7 @@
             <% @teachers.each do |teacher| %>
               <div class="list-group-item px-0 py-4 d-flex align-items-center justify-content-between bg-transparent border-bottom">
                 <div class="d-flex align-items-center gap-4">
-                  <% avatar_files = ["images (1).jpeg", "images (2).jpeg", "images (3).jpeg", "images (4).jpeg", "images (5).jpeg", "images (6).jpeg"] %>
+                  <% avatar_files = ["images (1).jpeg", "images (2).jpeg", "images (3).jpeg", "images (4).jpeg", "images (5).jpeg", "images (6).jpeg", "images.png", "images (7).jpeg"] %>
                   <% assigned_avatar = avatar_files[teacher.id % avatar_files.length] %>
                   <%= image_tag assigned_avatar, alt: teacher.name, width: 80, height: 80, class: "rounded-circle object-fit-cover shadow border border-2 border-primary" %>
                   <div>

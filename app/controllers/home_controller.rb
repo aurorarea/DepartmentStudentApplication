@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   def index
     @student_count = Student.count
     @teacher_count = Teacher.count
+    @subject_count = Subject.count
     @department_count = Department.count
     @subject_count = Subject.count
     @teachers = Teacher.order(:name).limit(3)
