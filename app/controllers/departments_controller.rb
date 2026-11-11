@@ -3,7 +3,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments or /departments.json
   def index
-    @departments = Department.all
+    @pagy, @departments= pagy(:offset, Department.order(:name), limit: 10)
   end
 
   # GET /departments/1 or /departments/1.json

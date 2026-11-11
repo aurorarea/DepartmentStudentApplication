@@ -3,7 +3,7 @@ class LaboratoriesController < ApplicationController
 
   # GET /laboratories or /laboratories.json
   def index
-    @laboratories = Laboratory.all
+    @pagy, @laboratories= pagy(:offset, Laboratory.order(:name), limit: 10)
   end
 
   # GET /laboratories/1 or /laboratories/1.json
