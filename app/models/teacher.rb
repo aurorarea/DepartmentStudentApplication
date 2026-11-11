@@ -9,5 +9,13 @@ class Teacher < ApplicationRecord
     new_salary = total_teaching_units * perUnitRate
 
     update_column(:monthlySalary, new_salary)
-    end
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "name", "email", "specialization" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "department" ]
+  end
 end

@@ -58,4 +58,12 @@ class Classlist < ApplicationRecord
     a_student.tuitionFee = [ (a_student.tuitionFee || 0.0) - (units * rate), 0.0 ].max
     a_student.save!
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "created_at", "id", "section_id", "student_id", "updated_at" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "subject", "student", "section" ]
+  end
 end

@@ -3,7 +3,8 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @pagy, @students= pagy(:offset, Student.order(:name), limit: 10)
+    @q = Student.ransack(params[:q])
+    @pagy, @students= pagy(:offset, @q.result.order(:name), limit: 10)
   end
 
   # GET /students/1 or /students/1.json

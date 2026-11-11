@@ -9,7 +9,23 @@
     <h1 class="h2 mb-0">Subjects</h1>
     <%= link_to "New subject", new_subject_path, class: "btn btn-primary" %>
   </div>
-
+  
+  <!-- Search Form -->
+  <div class="mb-3 w-25">
+    <%= search_form_for @q, url: subjects_path, method: :get, class: "d-flex  gap-2" do |f| %>
+      <div class="input-group input-group-sm">
+        <%= f.search_field :name_cont, class: "form-control form-control-sm", placeholder: "Search subject by name..." %>
+        <button type="submit" class="btn text-white btn-sm px-3" style="background-color: #15370D;">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+      
+      <% if params[:q].present? %>
+        <%= link_to "Clear", subjects_path, class: "btn btn-outline-secondary btn-sm" %>
+      <% end %>
+    <% end %>
+  </div>
+  
   <div class="table-responsive">
     <table class="table table-striped table-hover align-middle shadow-sm border">
       <thead class="table-dark">

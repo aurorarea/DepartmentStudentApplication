@@ -19,4 +19,12 @@ class Section < ApplicationRecord
   def recalculate_teacher_salary
     subject&.teacher&.update_monthly_salary!
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "name" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "subject" ]
+  end
 end

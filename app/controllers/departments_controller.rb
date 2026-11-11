@@ -3,7 +3,8 @@ class DepartmentsController < ApplicationController
 
   # GET /departments or /departments.json
   def index
-    @pagy, @departments= pagy(:offset, Department.order(:name), limit: 10)
+    @q = Department.ransack(params[:q])
+    @pagy, @departments= pagy(:offset, @q.result.order(:name), limit: 10)
   end
 
   # GET /departments/1 or /departments/1.json
