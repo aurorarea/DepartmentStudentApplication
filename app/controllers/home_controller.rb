@@ -4,6 +4,7 @@ class HomeController < ApplicationController
     @teacher_count = Teacher.count
     @subject_count = Subject.count
     @department_count = Department.count
+    @subject_count = Subject.count
     @teachers = Teacher.order(:name).limit(3)
   end
 end
