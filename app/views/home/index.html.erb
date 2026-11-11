@@ -1,195 +1,558 @@
- 
-  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4 pb-2">
-    <div>
-      <h1 class="display-5 fw-extrabold text-dark tracking-tight mb-1" style="font-weight: 800; color: #0f172a;">
-        Dashboard
-      </h1>
-      <p class="fs-5 mb-0" style="color: #64748b; font-weight: 400;">
-        Explore the people, programs and academic structure of the Department
-      </p>
-    </div>
-
-    <div class="d-flex align-items-center gap-2">
-      <%= link_to students_path, class: "glossy-search-pill text-decoration-none d-flex align-items-center px-3 py-2" do %>
-        <i class="bi bi-people-fill me-2 text-white-50"></i>
-        <span class="search-text text-white fw-medium small">Browse Students</span>
-      <% end %>
-
-      <%= link_to teachers_path, class: "glossy-search-pill text-decoration-none d-flex align-items-center px-3 py-2" do %>
-        <i class="bi bi-person-badge-fill me-2 text-white-50"></i>
-        <span class="search-text text-white fw-medium small">Browse Teachers</span>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="p-4 mb-20">
-  </div>
-
-  <!-- Dashboards counts -->
-  <div class="row g-3 mb-5">
-  <!-- Students Card -->
-  <div class="col-sm-6 col-xl-3">
-    <div class="card metric-pill bg-gradient-students text-white shadow-sm p-3">
-      <div class="d-flex align-items-center">
-        <div class="icon-circle me-3">
-          <i class="bi bi-people-fill fs-4 text-success"></i>
+<div class="dashboard-wrapper container-fluid px-0 pb-5">
+  <!-- 1. Hero Header Banner -->
+  <section class="hero-header-banner mb-4">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7 col-xl-7">
+        <!-- Top left status pill -->
+        <div class="hero-status-pill mb-2">
+          <span class="status-dot-pulse"></span>
+          <span>Active Academic Semester • 2026</span>
         </div>
-        <div>
-          <div class="text-uppercase fw-semibold small opacity-75" style="letter-spacing: 0.5px;">Students</div>
-          <div class="fs-2 fw-bold leading-tight"><%= @student_count %></div>
-        </div>
+        <!-- Title & Subtitle -->
+        <h1 class="hero-title">Department Dashboard</h1>
+        <p class="hero-subtitle">
+          Explore the people, programs, and academic structure of the Department with real-time analytics and management tools.
+        </p>
       </div>
-    </div>
-  </div>
 
-  <!-- Teachers Card -->
-  <div class="col-sm-6 col-xl-3">
-    <div class="card metric-pill bg-gradient-teachers text-white shadow-sm p-3">
-      <div class="d-flex align-items-center">
-        <div class="icon-circle me-3">
-          <i class="bi bi-person-badge-fill fs-4 text-primary"></i>
-        </div>
-        <div>
-          <div class="text-uppercase fw-semibold small opacity-75" style="letter-spacing: 0.5px;">Teachers</div>
-          <div class="fs-2 fw-bold leading-tight"><%= @teacher_count %></div>
-        </div>
-      </div>
-    </div>
-  </div>
+      <!-- Top right action area: Integrated Search Bar -->
+      <div class="col-lg-5 col-xl-5 d-flex justify-content-lg-end justify-content-start align-items-center">
+        <div class="hero-search-container">
+          <div class="hero-search-wrapper" id="heroSearchWrapper">
+            <!-- Search icon in soft warm gold #E5CD82 -->
+            <span class="hero-search-icon-box" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E5CD82" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="hero-search-icon-svg">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
 
-  <!-- Departments Card -->
-  <div class="col-sm-6 col-xl-3">
-    <div class="card metric-pill bg-gradient-departments text-white shadow-sm p-3">
-      <div class="d-flex align-items-center">
-        <div class="icon-circle me-3">
-          <i class="bi bi-building-fill fs-4 text-danger"></i>
-        </div>
-        <div>
-          <div class="text-uppercase fw-semibold small opacity-75" style="letter-spacing: 0.5px;">Departments</div>
-          <div class="fs-2 fw-bold leading-tight"><%= @department_count %></div>
-        </div>
-      </div>
-    </div>
+            <!-- Search input -->
+            <input type="text"
+                   id="heroGlobalSearch"
+                   class="hero-search-input"
+                   placeholder="Search directory, faculty, subjects..."
+                   autocomplete="off"
+                   spellcheck="false"
+                   aria-label="Search directory, faculty, subjects">
 
-  <!-- Subjects Card -->
-  <div class="col-sm-6 col-xl-3">
-    <div class="card metric-pill bg-gradient-subjects text-white shadow-sm p-3">
-      <div class="d-flex align-items-center">
-        <div class="icon-circle me-3">
-          <i class="bi bi-journal-bookmark-fill fs-4 text-warning"></i>
-        </div>
-        <div>
-          <div class="text-uppercase fw-semibold small opacity-75" style="letter-spacing: 0.5px;">Subjects</div>
-          <div class="fs-2 fw-bold leading-tight"><%= @subject_count %></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <div class="p-4 mb-40">
-  </div>
-
-  <!-- Main Content Split Grid -->
-  <div class="row g-4 flex-fill">
-    <!-- Left Column: Explore Directory Cards -->
-    <div class="col-lg-8 d-flex flex-column">
-      <h2 class="display-6 fw-bold mb-3 section-title">Explore the Directory</h2>
-      <div class="row g-4 flex-fill">
-        <div class="col-sm-6 d-flex">
-          <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-primary border-4">
-            <div class="card-body d-flex flex-column justify-content-between p-4">
-              <div>
-                <h3 class="card-title display-6 fw-bold mb-3 text-primary">Departments</h3>
-                <p class="card-text text-muted fs-5 mb-0">Offices and locations.</p>
-              </div>
-              <div class="d-flex gap-3 mt-4">
-                <%= link_to "View all", departments_path, class: "btn btn-primary btn-lg px-4 fs-5 shadow-sm" %>
-                <%= link_to "Add new", new_department_path, class: "btn btn-outline-primary btn-lg px-4 fs-5" %>
-              </div>
-            </div>
+            <!-- Quick-clear button (X) -->
+            <button type="button" id="heroSearchClearBtn" class="hero-search-clear-btn d-none" aria-label="Clear search input">
+              <i class="bi bi-x-lg"></i>
+            </button>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="col-sm-6 d-flex">
-          <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-info border-4">
-            <div class="card-body d-flex flex-column justify-content-between p-4">
-              <div>
-                <h3 class="card-title display-6 fw-bold mb-3 text-info">Students</h3>
-                <p class="card-text text-muted fs-5 mb-0">Enrolled students list.</p>
-              </div>
-              <div class="d-flex gap-3 mt-4">
-                <%= link_to "View all", students_path, class: "btn btn-info btn-lg px-4 fs-5 text-white shadow-sm" %>
-                <%= link_to "Add new", new_student_path, class: "btn btn-outline-info btn-lg px-4 fs-5" %>
-              </div>
-            </div>
+  <!-- 2. Top Analytics Metrics Grid (4-Column Layout) -->
+  <section class="mb-4">
+    <div class="row g-3">
+      <!-- Card 1: Students -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-stat-card">
+          <div class="metric-icon-box metric-icon-students shadow-xs">
+            <i class="bi bi-mortarboard-fill"></i>
+          </div>
+          <div class="metric-label">STUDENTS</div>
+          <div class="metric-count-row">
+            <span class="metric-count"><%= @student_count %></span>
+            <span class="metric-sublabel">Enrolled Total</span>
           </div>
         </div>
+      </div>
 
-        <div class="col-sm-6 d-flex">
-          <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-warning border-4">
-            <div class="card-body d-flex flex-column justify-content-between p-4">
-              <div>
-                <h3 class="card-title display-6 fw-bold mb-3 text-dark">Teachers</h3>
-                <p class="card-text text-muted fs-5 mb-0">Faculty and courses.</p>
-              </div>
-              <div class="d-flex gap-3 mt-4">
-                <%= link_to "View all", teachers_path, class: "btn btn-warning btn-lg px-4 fs-5 text-dark fw-bold shadow-sm" %>
-                <%= link_to "Add new", new_teacher_path, class: "btn btn-outline-warning btn-lg px-4 fs-5 text-dark" %>
-              </div>
-            </div>
+      <!-- Card 2: Teachers -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-stat-card">
+          <div class="metric-icon-box metric-icon-teachers shadow-xs">
+            <i class="bi bi-person-video3"></i>
           </div>
-        </div>
-
-        <div class="col-sm-6 d-flex">
-          <div class="card border-0 shadow-sm w-100 flex-fill bg-white border-top border-success border-4">
-            <div class="card-body d-flex flex-column justify-content-between p-4">
-              <div>
-                <h3 class="card-title display-6 fw-bold mb-3 text-success">Subjects</h3>
-                <p class="card-text text-muted fs-5 mb-0">Curriculum and subjects.</p>
-              </div>
-              <div class="d-flex gap-3 mt-4">
-                <%= link_to "View all", subjects_path, class: "btn btn-success btn-lg px-4 fs-5 text-white shadow-sm" %>
-                <%= link_to "Add new", new_subject_path, class: "btn btn-outline-success btn-lg px-4 fs-5" %>
-              </div>
-            </div>
+          <div class="metric-label">TEACHERS</div>
+          <div class="metric-count-row">
+            <span class="metric-count"><%= @teacher_count %></span>
+            <span class="metric-sublabel">Faculty Members</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Right Column: Meet Our Faculty -->
-    <div class="col-lg-4 d-flex flex-column">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="display-6 fw-bold mb-0 section-title">Meet Our Faculty</h2>
-        <%= link_to teachers_path, class: "btn btn-sm btn-outline-primary rounded-pill px-3 py-1 d-inline-flex align-items-center gap-1 fw-semibold text-decoration-none" do %>
-          <span>See all</span>
-          <i class="bi bi-arrow-right"></i>
-        <% end %>
+      <!-- Card 3: Departments -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-stat-card">
+          <div class="metric-icon-box metric-icon-departments shadow-xs">
+            <i class="bi bi-bank"></i>
+          </div>
+          <div class="metric-label">DEPARTMENTS</div>
+          <div class="metric-count-row">
+            <span class="metric-count"><%= @department_count %></span>
+            <span class="metric-sublabel">Academic Divisions</span>
+          </div>
+        </div>
       </div>
 
-      <div class="card border-0 shadow-sm flex-fill w-100 bg-white border-top border-dark border-4">
-        <div class="card-body d-flex flex-column justify-content-between p-4 h-100">
-          <div class="list-group list-group-flush w-100 flex-fill d-flex flex-column justify-content-around">
-            <% @teachers.each do |teacher| %>
-              <div class="list-group-item px-0 py-4 d-flex align-items-center justify-content-between bg-transparent border-bottom">
-                <div class="d-flex align-items-center gap-4">
-                  <% avatar_files = ["images (1).jpeg", "images (2).jpeg", "images (3).jpeg", "images (4).jpeg", "images (5).jpeg", "images (6).jpeg", "images.png", "images (7).jpeg"] %>
-                  <% assigned_avatar = avatar_files[teacher.id % avatar_files.length] %>
-                  <%= image_tag assigned_avatar, alt: teacher.name, width: 80, height: 80, class: "rounded-circle object-fit-cover shadow border border-2 border-primary" %>
-                  <div>
-                    <h4 class="mb-1 fw-bold text-dark"><%= teacher.name %></h4>
-                    <span class="text-muted fs-5"><%= teacher.specialization %></span>
+      <!-- Card 4: Subjects -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-stat-card">
+          <div class="metric-icon-box metric-icon-subjects shadow-xs">
+            <i class="bi bi-journal-text"></i>
+          </div>
+          <div class="metric-label">SUBJECTS</div>
+          <div class="metric-count-row">
+            <span class="metric-count"><%= @subject_count %></span>
+            <span class="metric-sublabel">Core Modules</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Main Body Grid (Asymmetric Split: ~65% Left / ~35% Right) -->
+  <section>
+    <div class="row g-4 align-items-stretch">
+      <!-- LEFT COLUMN (Directory) -->
+      <div class="col-12 col-lg-8">
+        <!-- Directory Header Bar -->
+          <div class="directory-header-row">
+            <div class="directory-title-wrap">
+              <div class="directory-brand-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="3" width="9" height="8" rx="2" fill="#15370D" />
+                  <rect x="13" y="3" width="9" height="8" rx="2" fill="#728E6D" />
+                  <rect x="2" y="13" width="9" height="8" rx="2" fill="#728E6D" />
+                  <rect x="13" y="13" width="9" height="8" rx="2" fill="#E5CD82" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="directory-title">Explore the Directory</h2>
+                <p class="directory-desc">Explore the people, programs, and academic structure of the Department Student Application.</p>
+              </div>
+            </div>
+
+            <!-- Segmented Tab Filters -->
+            <div class="filter-tabs-container" role="tablist" aria-label="Directory Filters">
+              <button type="button" class="filter-tab-btn active" data-filter="all">All</button>
+              <button type="button" class="filter-tab-btn" data-filter="depts">Depts</button>
+              <button type="button" class="filter-tab-btn" data-filter="students">Students</button>
+              <button type="button" class="filter-tab-btn" data-filter="teachers">Teachers</button>
+            </div>
+          </div>
+
+          <!-- 2x2 Card Grid for Directory Categories -->
+          <div class="row g-3" id="directoryCardsGrid">
+            <!-- 1. Departments Card -->
+            <div class="col-12 col-sm-6 dir-filter-item" data-category="depts" id="card-departments">
+              <div class="dir-category-card">
+                <div>
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div class="dir-category-icon-box dir-icon-departments">
+                      <i class="bi bi-diagram-3-fill"></i>
+                    </div>
+                    <span class="dir-badge-pill dir-badge-departments">
+                      <%= @department_count %> Divisions
+                    </span>
+                  </div>
+                  <h3 class="dir-card-title">Departments</h3>
+                  <p class="dir-card-subtitle">Name, Offices and locations.</p>
+                </div>
+                <div class="dir-actions-row">
+                  <%= link_to departments_path, class: "btn-dir-blue-solid" do %>
+                    <span>View all</span>
+                    <i class="bi bi-arrow-right"></i>
+                  <% end %>
+                  <%= link_to new_department_path, class: "btn-dir-blue-outline" do %>
+                    <i class="bi bi-plus"></i>
+                    <span>Add new</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Students Card -->
+            <div class="col-12 col-sm-6 dir-filter-item" data-category="students" id="card-students">
+              <div class="dir-category-card">
+                <div>
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div class="dir-category-icon-box dir-icon-students">
+                      <i class="bi bi-person-vcard-fill"></i>
+                    </div>
+                    <span class="dir-badge-pill dir-badge-students">
+                      <%= @student_count %> Enrolled
+                    </span>
+                  </div>
+                  <h3 class="dir-card-title">Students</h3>
+                  <p class="dir-card-subtitle">Enrolled students list and Teacher-Subject records.</p>
+                </div>
+                <div class="dir-actions-row">
+                  <%= link_to students_path, class: "btn-dir-cyan-solid" do %>
+                    <span>View all</span>
+                    <i class="bi bi-arrow-right"></i>
+                  <% end %>
+                  <%= link_to new_student_path, class: "btn-dir-cyan-outline" do %>
+                    <i class="bi bi-plus"></i>
+                    <span>Add new</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Teachers Card -->
+            <div class="col-12 col-sm-6 dir-filter-item" data-category="teachers" id="card-teachers">
+              <div class="dir-category-card">
+                <div>
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div class="dir-category-icon-box dir-icon-teachers">
+                      <i class="bi bi-person-workspace"></i>
+                    </div>
+                    <span class="dir-badge-pill dir-badge-teachers">
+                      <%= @teacher_count %> Faculty
+                    </span>
+                  </div>
+                  <h3 class="dir-card-title">Teachers</h3>
+                  <p class="dir-card-subtitle">Faculty staff, Schedules, and Profile.</p>
+                </div>
+                <div class="dir-actions-row">
+                  <%= link_to teachers_path, class: "btn-dir-gold-solid" do %>
+                    <span>View all</span>
+                    <i class="bi bi-arrow-right"></i>
+                  <% end %>
+                  <%= link_to new_teacher_path, class: "btn-dir-gold-outline" do %>
+                    <i class="bi bi-plus"></i>
+                    <span>Add new</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Subjects Card -->
+            <div class="col-12 col-sm-6 dir-filter-item" data-category="subjects" id="card-subjects">
+              <div class="dir-category-card">
+                <div>
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div class="dir-category-icon-box dir-icon-subjects">
+                      <i class="bi bi-journal-bookmark-fill"></i>
+                    </div>
+                    <span class="dir-badge-pill dir-badge-subjects">
+                      <%= @subject_count %> Subjects
+                    </span>
+                  </div>
+                  <h3 class="dir-card-title">Subjects</h3>
+                  <p class="dir-card-subtitle">Curriculum units, schedules, and Course Teachers</p>
+                </div>
+                <div class="dir-actions-row">
+                  <%= link_to subjects_path, class: "btn-dir-green-solid" do %>
+                    <span>View all</span>
+                    <i class="bi bi-arrow-right"></i>
+                  <% end %>
+                  <%= link_to new_subject_path, class: "btn-dir-green-outline" do %>
+                    <i class="bi bi-plus"></i>
+                    <span>Add new</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- RIGHT COLUMN (Faculty Sidebar Panel) -->
+      <div class="col-12 col-lg-4">
+        <aside class="faculty-sidebar-panel">
+          <!-- Header Bar -->
+          <div class="faculty-panel-header">
+            <div class="faculty-panel-title-wrap">
+              <i class="bi bi-people-fill faculty-header-icon"></i>
+              <div>
+                <h3 class="faculty-panel-title">Meet Our Faculty</h3>
+                <p class="faculty-panel-desc">Faculty Profiles</p>
+              </div>
+            </div>
+            <%= link_to "See all", teachers_path, class: "btn-see-all" %>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="faculty-search-wrapper">
+            <i class="bi bi-funnel-fill faculty-search-icon"></i>
+            <input type="text" id="facultySearchInput" class="faculty-search-input" placeholder="Filter faculty members..." autocomplete="off">
+          </div>
+
+          <!-- Vertical Faculty Roster List -->
+          <div class="faculty-roster-list" id="facultyRosterList">
+            <% @faculty_members.each do |member| %>
+              <div class="faculty-card-item" data-faculty-name="<%= member[:name].downcase %>" data-faculty-role="<%= member[:role].downcase %>">
+                <div class="d-flex align-items-center gap-3 min-w-0">
+                  <div class="faculty-avatar-wrap">
+                    <div class="faculty-avatar-circle" style="background-color: <%= member[:avatar_bg] %>;">
+                      <%= member[:initials] %>
+                    </div>
+                    <span class="faculty-online-dot"></span>
+                  </div>
+                  <div class="faculty-info-wrap">
+                    <div class="faculty-name-row">
+                      <span class="faculty-name"><%= member[:name] %></span>
+                      <% if member[:verified] %>
+                        <i class="bi bi-patch-check-fill verified-icon" title="Verified Faculty Lead"></i>
+                      <% end %>
+                    </div>
+                    <div class="faculty-specialization-wrap">
+                      <span class="badge-faculty-specialization badge-spec-<%= member[:initials].downcase %>">
+                        <%= member[:role] %>
+                      </span>
+                    </div>
                   </div>
                 </div>
+
                 <div>
-                  <%= link_to "Profile", teacher, class: "btn btn-outline-primary btn-lg px-4 fs-5 shadow-sm" %>
+                  <% target_path = member[:record] ? teacher_path(member[:record]) : teachers_path %>
+                  <%= link_to "Profile", target_path, class: "btn-faculty-profile" %>
                 </div>
               </div>
             <% end %>
+
+            <!-- Empty State for Search Filter -->
+            <div id="facultyEmptyState" class="text-center py-4 d-none">
+              <i class="bi bi-search text-muted fs-3 mb-2 d-block"></i>
+              <p class="text-muted small mb-0">No faculty members found matching your filter.</p>
+            </div>
+          </div>
+
+          <!-- Sidebar Footer -->
+          <div class="faculty-sidebar-footer">
+            <div class="live-presence-indicator">
+              <span class="live-dot-green"></span>
+              <span>3 Online Now</span>
+            </div>
+            <%= link_to new_teacher_path, class: "btn-add-faculty-link" do %>
+              <i class="bi bi-person-plus-fill"></i>
+              <span>Add Faculty Member</span>
+            <% end %>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Export Report Modal -->
+<div class="modal fade" id="exportReportModal" tabindex="-1" aria-labelledby="exportReportModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3xl border-0 shadow-lg" style="background-color: #FFFFFF;">
+      <div class="modal-header border-0 pb-0 pt-4 px-4">
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge rounded-circle p-2" style="background-color: #E8F8F0; color: #15803D;">
+            <i class="bi bi-file-earmark-bar-graph-fill fs-5"></i>
+          </span>
+          <div>
+            <h5 class="modal-title fw-bold text-dark mb-0" id="exportReportModalLabel">Department Analytics Report</h5>
+            <small class="text-muted">Academic Semester 2026 Executive Summary</small>
           </div>
         </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="p-3 rounded-2xl mb-3" style="background-color: #F7F9F6; border: 1px solid #E8ECE6;">
+          <div class="row g-2 text-center">
+            <div class="col-3 border-end">
+              <div class="fs-4 fw-bold text-dark"><%= @student_count %></div>
+              <div class="text-muted small" style="font-size: 0.7rem;">Students</div>
+            </div>
+            <div class="col-3 border-end">
+              <div class="fs-4 fw-bold text-dark"><%= @teacher_count %></div>
+              <div class="text-muted small" style="font-size: 0.7rem;">Teachers</div>
+            </div>
+            <div class="col-3 border-end">
+              <div class="fs-4 fw-bold text-dark"><%= @department_count %></div>
+              <div class="text-muted small" style="font-size: 0.7rem;">Divisions</div>
+            </div>
+            <div class="col-3">
+              <div class="fs-4 fw-bold text-dark"><%= @subject_count %></div>
+              <div class="text-muted small" style="font-size: 0.7rem;">Modules</div>
+            </div>
+          </div>
+        </div>
+        <p class="text-muted small mb-0">
+          This report compiles live enrollment figures, active faculty ratios (1:5), curriculum completion rates, and division metrics for export to PDF or CSV.
+        </p>
+      </div>
+      <div class="modal-footer border-0 pt-0 pb-4 px-4 gap-2">
+        <button type="button" class="btn btn-light rounded-pill px-4 text-muted fw-semibold" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn rounded-pill px-4 fw-bold text-white" style="background-color: #15370D;" onclick="window.print()">
+          <i class="bi bi-printer me-1"></i> Print / Save PDF
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Interactive JavaScript for Tab Navigation & Real-time Faculty Filtering -->
+<script>
+  document.addEventListener("turbo:load", setupDashboardInteractions);
+  document.addEventListener("DOMContentLoaded", setupDashboardInteractions);
+
+  function setupDashboardInteractions() {
+    // 1. Directory Tab Filtering
+    const tabButtons = document.querySelectorAll(".filter-tab-btn");
+    const dirCards = document.querySelectorAll(".dir-filter-item");
+
+    tabButtons.forEach(btn => {
+      // Remove any previously attached duplicate listeners by cloning or checking
+      btn.onclick = function() {
+        tabButtons.forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+
+        const filter = this.getAttribute("data-filter");
+
+        dirCards.forEach(card => {
+          const category = card.getAttribute("data-category");
+          if (filter === "all" || category === filter) {
+            card.classList.remove("d-none");
+            card.style.opacity = "0";
+            setTimeout(() => {
+              card.style.transition = "opacity 0.2s ease";
+              card.style.opacity = "1";
+            }, 10);
+          } else {
+            card.classList.add("d-none");
+          }
+        });
+      };
+    });
+
+    // 2. Faculty Real-Time Search Filter
+    const searchInput = document.getElementById("facultySearchInput");
+    const rosterItems = document.querySelectorAll(".faculty-card-item");
+    const emptyState = document.getElementById("facultyEmptyState");
+
+    if (searchInput) {
+      searchInput.oninput = function() {
+        const query = this.value.trim().toLowerCase();
+        let matchCount = 0;
+
+        rosterItems.forEach(item => {
+          const name = item.getAttribute("data-faculty-name") || "";
+          const role = item.getAttribute("data-faculty-role") || "";
+          const text = item.textContent.toLowerCase();
+
+          if (name.includes(query) || role.includes(query) || text.includes(query)) {
+            item.classList.remove("d-none");
+            matchCount++;
+          } else {
+            item.classList.add("d-none");
+          }
+        });
+
+        if (emptyState) {
+          if (matchCount === 0) {
+            emptyState.classList.remove("d-none");
+          } else {
+            emptyState.classList.add("d-none");
+          }
+        }
+      };
+    }
+
+    // 3. Hero Header Global Search Bar (⌘K / Quick Clear / Cross-Filter)
+    const heroSearchInput = document.getElementById("heroGlobalSearch");
+    const heroClearBtn = document.getElementById("heroSearchClearBtn");
+
+    function executeHeroSearch(query) {
+      const q = query.trim().toLowerCase();
+
+      // Filter Directory Cards
+      dirCards.forEach(card => {
+        if (!q) {
+          // Restore active tab filter
+          const activeTab = document.querySelector(".filter-tab-btn.active");
+          const activeFilter = activeTab ? activeTab.getAttribute("data-filter") : "all";
+          const category = card.getAttribute("data-category");
+          if (activeFilter === "all" || category === activeFilter) {
+            card.classList.remove("d-none");
+          } else {
+            card.classList.add("d-none");
+          }
+        } else {
+          const text = card.textContent.toLowerCase();
+          if (text.includes(q)) {
+            card.classList.remove("d-none");
+          } else {
+            card.classList.add("d-none");
+          }
+        }
+      });
+
+      // Filter Faculty Sidebar
+      let facultyMatches = 0;
+      rosterItems.forEach(item => {
+        if (!q) {
+          item.classList.remove("d-none");
+          facultyMatches++;
+        } else {
+          const text = item.textContent.toLowerCase();
+          if (text.includes(q)) {
+            item.classList.remove("d-none");
+            facultyMatches++;
+          } else {
+            item.classList.add("d-none");
+          }
+        }
+      });
+
+      if (emptyState) {
+        if (q && facultyMatches === 0) {
+          emptyState.classList.remove("d-none");
+        } else {
+          emptyState.classList.add("d-none");
+        }
+      }
+    }
+
+    if (heroSearchInput) {
+      // Input listener
+      heroSearchInput.oninput = function() {
+        const val = this.value;
+        if (heroClearBtn) {
+          if (val.length > 0) {
+            heroClearBtn.classList.remove("d-none");
+          } else {
+            heroClearBtn.classList.add("d-none");
+          }
+        }
+        executeHeroSearch(val);
+      };
+
+      // Clear button listener
+      if (heroClearBtn) {
+        heroClearBtn.onclick = function() {
+          heroSearchInput.value = "";
+          heroClearBtn.classList.add("d-none");
+          heroSearchInput.focus();
+          executeHeroSearch("");
+        };
+      }
+
+      // Escape key to clear & blur
+      heroSearchInput.onkeydown = function(e) {
+        if (e.key === "Escape") {
+          this.value = "";
+          if (heroClearBtn) heroClearBtn.classList.add("d-none");
+          this.blur();
+          executeHeroSearch("");
+        }
+      };
+    }
+
+    // Global keyboard shortcut (⌘K, Ctrl+K, or /)
+    window.onkeydown = function(e) {
+      const isCmdOrCtrl = e.metaKey || e.ctrlKey;
+      const isSlash = e.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName);
+
+      if ((isCmdOrCtrl && e.key.toLowerCase() === "k") || isSlash) {
+        e.preventDefault();
+        if (heroSearchInput) {
+          heroSearchInput.focus();
+          heroSearchInput.select();
+        }
+      }
+    };
+  }
+</script>

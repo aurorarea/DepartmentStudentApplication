@@ -6,49 +6,110 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!-- Bootstrap 5 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-<body>
-  <!-- Top Bar with ONLY the Hamburger Toggle Button -->
-  <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
-    <div class="w-100 px-4">
-      <!-- Toggle button that opens the offcanvas sidebar -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body style="background-color: #F7F9F6;">
+  <!-- Top Bar with Toggle Button & Department Branding -->
+  <nav class="navbar navbar-dark fixed-top shadow-sm app-top-navbar" style="background-color: #15370D;">
+    <div class="container-fluid px-3 px-md-4 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-3">
+        <!-- Toggle button that opens the offcanvas sidebar -->
+        <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <%= link_to root_path, class: "navbar-brand d-flex align-items-center gap-2 mb-0 py-0 text-white text-decoration-none" do %>
+          <span class="badge rounded-pill" style="background-color: #E5CD82; color: #15370D; font-weight: 700; font-size: 0.75rem;">PORTAL</span>
+          <span class="fw-bold tracking-tight d-none d-sm-inline" style="font-size: 0.95rem; letter-spacing: -0.01em;">Department Student App</span>
+        <% end %>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <span class="d-none d-md-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill text-white-50" style="background: rgba(255,255,255,0.08); font-size: 0.8rem;">
+          <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 6px #4ADE80;"></span>
+          <span class="text-white" style="font-size: 0.775rem;">Semester 2026</span>
+        </span>
+      </div>
     </div>
   </nav>
 
-    <!-- Slide-out Left Sidebar Drawer -->
-    <div class="offcanvas offcanvas-start text-white shadow-lg" tabindex="-1" id="sidebarDrawer" aria-labelledby="sidebarDrawerLabel" style="width: 300px; background-color: #0f172a !important;">
-      <div class="offcanvas-header border-bottom border-secondary border-opacity-25 px-4 py-4">
-        <h5 class="offcanvas-title fw-bold fs-4 text-white" id="sidebarDrawerLabel">Navigation Menu</h5>
-        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body px-4 py-4">
-        <ul class="nav flex-column gap-2 fs-5">
-          <li class="nav-item"><%= link_to "Home", root_path, class: "nav-link text-white px-3 py-2 rounded-3 bg-primary bg-opacity-25 fw-semibold" %></li>
-          <li class="nav-item"><%= link_to "Students", students_path, class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
-          <li class="nav-item"><%= link_to "Departments", departments_path, class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
-          <li class="nav-item"><%= link_to "Teachers", teachers_path, class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
-          <li class="nav-item"><%= link_to "Subjects", subjects_path, class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
-          <li class="nav-item"><%= link_to "Sections", "#", class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
-          <li class="nav-item"><%= link_to "Class Lists", "#", class: "nav-link text-white px-3 py-2 rounded-3 hover-opacity" %></li>
-        </ul>
-      </div>
+  <!-- Toggleable Offcanvas Sidebar (Slides from Left) -->
+  <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel" style="background-color: #122c0b !important;">
+    <div class="offcanvas-header border-bottom border-white-10" style="border-color: rgba(255,255,255,0.1) !important;">
+      <h5 class="offcanvas-title d-flex align-items-center gap-2" id="offcanvasSidebarLabel">
+        <span class="badge rounded-circle p-2" style="background-color: #E5CD82; color: #15370D;">
+          <i class="bi bi-mortarboard-fill"></i>
+        </span>
+        <%= link_to "Department Portal", root_path, class: "text-white text-decoration-none fw-bold fs-5" %>
+      </h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    <div class="offcanvas-body">
+      <ul class="nav flex-column px-2 gap-1">
+        <li class="nav-item">
+          <%= link_to root_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(root_path)}", style: (current_page?(root_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
+            <i class="bi bi-speedometer2 text-white-50"></i>
+            <span>Home</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to students_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(students_path)}", style: (current_page?(students_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
+            <i class="bi bi-people text-white-50"></i>
+            <span>Students</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to departments_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(departments_path)}", style: (current_page?(departments_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
+            <i class="bi bi-building text-white-50"></i>
+            <span>Departments</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to teachers_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(teachers_path)}", style: (current_page?(teachers_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
+            <i class="bi bi-person-workspace text-white-50"></i>
+            <span>Teachers</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to subjects_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(subjects_path)}", style: (current_page?(subjects_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
+            <i class="bi bi-book text-white-50"></i>
+            <span>Subjects</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to sections_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(sections_path)}", style: (current_page?(sections_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
+            <i class="bi bi-grid-3x3-gap text-white-50"></i>
+            <span>Sections</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to classlists_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(classlists_path)}", style: (current_page?(classlists_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
+            <i class="bi bi-card-checklist text-white-50"></i>
+            <span>Class Lists</span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
 
   <!-- Main Content Area -->
-  <main class="w-100 px-4 py-5 mt-4">
+  <main class="w-100 px-3 px-md-4 py-4 mt-5">
     <%= yield %>
   </main>
 
-    <!-- Bootstrap 5 JS Bundle CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
 </html>
