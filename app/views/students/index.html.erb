@@ -3,19 +3,26 @@
   <%= link_to "New student", new_student_path, class: "btn btn-primary" %>
 </div>
 
-<!-- Search Form -->
-<div class="mb-3 w-25">
-  <%= search_form_for @q, url: students_path, method: :get, class: "d-flex  gap-2" do |f| %>
-    <div class="input-group input-group-sm">
-      <%= f.search_field :name_cont, class: "form-control form-control-sm", placeholder: "Search student by name..." %>
-      <button type="submit" class="btn text-white btn-sm px-3" style="background-color: #15370D;">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-    
-    <% if params[:q].present? %>
-      <%= link_to "Clear", students_path, class: "btn btn-outline-secondary btn-sm" %>
+<!-- Same Row: Search Bar + Export Excel -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <!-- Search Form -->
+  <div class="w-25">
+    <%= search_form_for @q, url: students_path, method: :get, class: "d-flex gap-2" do |f| %>
+      <div class="input-group input-group-sm">
+        <%= f.search_field :name_cont, class: "form-control form-control-sm", placeholder: "Search student by name..." %>
+        <button type="submit" class="btn text-white btn-sm px-3" style="background-color: #15370D;">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+
+      <% if params[:q].present? %>
+        <%= link_to "Clear", students_path, class: "btn btn-outline-secondary btn-sm" %>
+      <% end %>
     <% end %>
+  </div>
+
+  <%= link_to students_path(q: params[:q]&.to_unsafe_h, format: :xlsx), class: "btn btn-outline-success btn-sm d-inline-flex align-items-center gap-1" do %>
+  <i class="bi bi-file-earmark-excel"></i> Export Excel
   <% end %>
 </div>
 

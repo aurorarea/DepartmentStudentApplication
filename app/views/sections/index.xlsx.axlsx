@@ -1,0 +1,15 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Sections") do |sheet|
+  sheet.add_row ["Name", "Room", "Subject", "Timeslot", "Student Count"]
+
+  @sections.each do |section|
+    sheet.add_row [
+      section.name, 
+      section.room,
+      section.subject&.name,
+      section.timeslot,
+      section.studentsCount
+    ]
+  end
+end

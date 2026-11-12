@@ -3,8 +3,17 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @q = Student.ransack(params[:q])
-    @pagy, @students= pagy(:offset, @q.result.order(:name), limit: 10)
+      @q = Student.ransack(params[:q])
+
+      respond_to do |format|
+      format.html do
+        @pagy, @students= pagy(:offset, @q.result.includes(:department).order(:name), limit: 10)
+      end
+      format.xlsx do
+        @students = @q.result.includes(:department).order(:name)
+        response.headers["Content-Disposition"] = 'attachment; filename="Students_List.xlsx"'
+      end
+    end
   end
 
   # GET /students/1 or /students/1.json

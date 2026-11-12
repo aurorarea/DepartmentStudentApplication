@@ -4,7 +4,16 @@ class ClasslistsController < ApplicationController
   # GET /classlists or /classlists.json
   def index
     @q = Classlist.ransack(params[:q])
-    @pagy, @classlists= pagy(:offset, @q.result.includes(:student, section: :subject).order(:id), limit: 10)
+
+      respond_to do |format|
+      format.html do
+        @pagy, @classlists= pagy(:offset, @q.result.includes(:student, section: :subject).order(:id), limit: 10)
+      end
+      format.xlsx do
+        @classlists = @q.result.includes(:student, section: :subject).order(:id)
+        render xlsx: "index", filename: "#{controller_name.titleize}_List.xlsx"
+      end
+    end
   end
 
   # GET /classlists/1 or /classlists/1.json

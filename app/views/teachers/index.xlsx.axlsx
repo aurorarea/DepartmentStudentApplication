@@ -1,0 +1,16 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Teachers") do |sheet|
+  sheet.add_row ["Name", "Email", "Specialization", "Department", "Monthly Salary", "Per Unit Rate"]
+
+  @teachers.each do |teacher|
+    sheet.add_row [
+      teacher.name, 
+      teacher.email,
+      teacher.specialization,
+      teacher.department&.name,
+      teacher.monthlySalary,
+      teacher.perUnitRate
+    ]
+  end
+end

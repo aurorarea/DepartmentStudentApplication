@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Classlists") do |sheet|
+  sheet.add_row ["Name", "Section", "Subject"]
+
+  @classlists.each do |classlist|
+    sheet.add_row [
+      classlist.student&.name, 
+      classlist.section&.name,
+      classlist.section&.subject&.name
+    ]
+  end
+end
