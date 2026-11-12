@@ -40,15 +40,18 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+
+# LAB 6 DITO NALANG I ADD MHONS
 # Gem1
 gem "pagy"
 # Gem2
 gem "ransack"
+# Gem3
+gem "caxlsx_rails"
 
 group :development do
   gem "bullet"
 end
-
 
 
 

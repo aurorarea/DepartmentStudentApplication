@@ -4,7 +4,8 @@
 </div>
 
   <!-- Search Form -->
-<div class="mb-3 w-25">
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="w-25">
   <%= search_form_for @q, url: sections_path, method: :get, class: "d-flex  gap-2" do |f| %>
     <div class="input-group input-group-sm">
       <%= f.search_field :name_cont, class: "form-control form-control-sm", placeholder: "Search section by name..." %>
@@ -16,6 +17,11 @@
     <% if params[:q].present? %>
       <%= link_to "Clear", sections_path, class: "btn btn-outline-secondary btn-sm" %>
     <% end %>
+  <% end %>
+</div>
+
+  <%= link_to sections_path(q: params[:q]&.to_unsafe_h, format: :xlsx), class: "btn btn-outline-success btn-sm d-inline-flex align-items-center gap-1" do %>
+    <i class="bi bi-file-earmark-excel"></i> Export Excel
   <% end %>
 </div>
 

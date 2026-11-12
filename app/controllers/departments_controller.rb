@@ -4,7 +4,16 @@ class DepartmentsController < ApplicationController
   # GET /departments or /departments.json
   def index
     @q = Department.ransack(params[:q])
-    @pagy, @departments= pagy(:offset, @q.result.order(:name), limit: 10)
+
+      respond_to do |format|
+      format.html do
+        @pagy, @departments= pagy(:offset, @q.result.order(:name), limit: 10)
+      end
+      format.xlsx do
+        @departments = @q.result.order(:name)
+        response.headers["Content-Disposition"] = 'attachment; filename="Departments_List.xlsx"'
+      end
+    end
   end
 
   # GET /departments/1 or /departments/1.json

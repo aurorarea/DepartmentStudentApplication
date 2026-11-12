@@ -3,7 +3,17 @@ class LaboratoriesController < ApplicationController
 
   # GET /laboratories or /laboratories.json
   def index
-    @pagy, @laboratories= pagy(:offset, Laboratory.order(:name), limit: 10)
+    @q = Laboratory.ransack(params[:q])
+
+      respond_to do |format|
+      format.html do
+        @pagy, @laboratories= pagy(:offset, Laboratory.order(:name), limit: 10)
+      end
+      format.xlsx do
+        @laboratories = @q.result.includes(:department).order(:name)
+        render xlsx: "index", filename: "#{controller_name.titleize}_List.xlsx"
+      end
+    end
   end
 
   # GET /laboratories/1 or /laboratories/1.json

@@ -4,7 +4,16 @@ class SectionsController < ApplicationController
   # GET /sections or /sections.json
   def index
     @q = Section.ransack(params[:q])
-    @pagy, @sections= pagy(:offset, @q.result.order(:name), limit: 10)
+
+      respond_to do |format|
+      format.html do
+        @pagy, @sections= pagy(:offset, @q.result.order(:name), limit: 10)
+      end
+      format.xlsx do
+        @sections = @q.result.includes(:subject).order(:name)
+       response.headers["Content-Disposition"] = 'attachment; filename="Sections_List.xlsx"'
+      end
+    end
   end
 
   # GET /sections/1 or /sections/1.json

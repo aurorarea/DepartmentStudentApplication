@@ -4,7 +4,16 @@ class SubjectsController < ApplicationController
   # GET /subjects or /subjects.json
   def index
     @q = Subject.ransack(params[:q])
-    @pagy, @subjects= pagy(:offset, @q.result.includes(:teacher).order(:name), limit: 10)
+
+      respond_to do |format|
+      format.html do
+        @pagy, @subjects= pagy(:offset, @q.result.includes(:teacher).order(:name), limit: 10)
+      end
+      format.xlsx do
+        @subjects= @q.result.includes(:teacher).order(:name)
+        render xlsx: "index", filename: "#{controller_name.titleize}_List.xlsx"
+      end
+    end
   end
 
   # GET /subjects/1 or /subjects/1.json

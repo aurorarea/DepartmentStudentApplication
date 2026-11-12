@@ -1,0 +1,17 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Students") do |sheet|
+  sheet.add_row ["Name", "Year Level", "Program", "Department", "Subjects Count", "Number of Units", "Tuition Fee"]
+
+  @students.each do |student|
+    sheet.add_row [
+      student.name, 
+      student.year_level,
+      student.program,
+      student.department&.name,
+      student.subjectsCount || 0,
+      student.numberOfUnits || 0,
+      student.tuitionFee
+    ]
+  end
+end
