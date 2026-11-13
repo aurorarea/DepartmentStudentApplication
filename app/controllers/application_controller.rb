@@ -7,4 +7,6 @@ class ApplicationController < ActionController::Base
 
   # Step1 - add pagy to controller
   include Pagy::Method
+
+  before_action :set_paper_trail_whodunnit
 end

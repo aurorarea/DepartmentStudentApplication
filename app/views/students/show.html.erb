@@ -140,38 +140,44 @@
   </div>
 </div>
 
-<!-- Change History Card -->
-<div class="card border-0 shadow-sm">
-  <div class="card-header bg-light py-3">
-    <h6 class="card-title mb-0 fw-bold text-secondary">Change History</h6>
-  </div>
+<!-- Change History Section -->
+<div class="card shadow-sm mb-4">
   <div class="card-body">
+    <h5 class="card-title mb-3">Change History</h5>
+    
     <% if @student.versions.any? %>
-      <div class="list-group list-group-flush">
-        <% @student.versions.order(created_at: :desc).each do |v| %>
-          <% 
-            changes = v.respond_to?(:changeset) ? v.changeset : {}
-            changes.except!("updated_at")
-          %>
-          <div class="list-group-item px-0 py-3">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <span class="badge bg-<%= v.event == 'create' ? 'success' : (v.event == 'update' ? 'primary' : 'danger') %>">
-                <%= v.event.titleize %>
-              </span>
-              <small class="text-muted"><%= v.created_at.strftime("%B %d, %Y - %I:%M %p") %></small>
+      <% @student.versions.order(created_at: :desc).each do |version| %>
+        <div class="d-flex align-items-start mb-3 pb-3 border-bottom">
+          <div class="me-3">
+            <% badge_class = case version.event
+               when 'create' then 'bg-success'
+               when 'update' then 'bg-primary'
+               when 'destroy' then 'bg-danger'
+               else 'bg-secondary'
+               end %>
+            <span class="badge <%= badge_class %> text-uppercase"><%= version.event %></span>
+          </div>
+          
+          <div class="flex-grow-1">
+            <div class="text-muted small mb-1">
+              <%= version.created_at.strftime("%B %d, %Y at %I:%M %p") %>
             </div>
-            <% if changes.present? %>
-              <ul class="small text-muted mb-0 mt-2 ps-3">
-                <% changes.each do |attr, (old_val, new_val)| %>
-                  <li><strong><%= attr.titleize %>:</strong> <del class="text-muted"><%= old_val.inspect %></del> &rarr; <ins class="text-success"><%= new_val.inspect %></ins></li>
+            
+            <% if version.changeset.present? %>
+              <ul class="list-unstyled mb-0 small">
+                <% version.changeset.each do |attribute, (old_val, new_val)| %>
+                  <li>
+                    <strong><%= attribute.humanize %>:</strong> 
+                    <em><%= old_val.inspect %></em> &rarr; <em><%= new_val.inspect %></em>
+                  </li>
                 <% end %>
               </ul>
             <% else %>
-              <p class="small text-muted mb-0 mt-1">No attribute changes recorded.</p>
+              <p class="text-muted small mb-0">Record created.</p>
             <% end %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     <% else %>
       <p class="text-muted mb-0">No changes recorded yet.</p>
     <% end %>
