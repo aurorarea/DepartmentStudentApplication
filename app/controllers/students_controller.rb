@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: %i[ show edit update destroy ]
+  before_action :set_student, only: %i[ show edit update destroy history ]
 
   # GET /students or /students.json
   def index
@@ -20,6 +20,11 @@ class StudentsController < ApplicationController
   def show
     @classlist = Classlist.new(student: @student)
     @sections = Section.all
+  end
+
+  # GET /students/1/history
+  def history
+    @versions = @student.versions.order(created_at: :desc)
   end
 
   # GET /students/new
@@ -77,6 +82,7 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
+      params.require(:student).permit(:name, :year_level, :program, :department_id)
       params.expect(student: [ :name, :year_level, :program, :department_id, :tuitionFee, :subjectsCount, :numberOfUnits ])
     end
 end

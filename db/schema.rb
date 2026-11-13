@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_12_164857) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_13_073913) do
   create_table "classlists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "section_id", null: false
@@ -82,6 +82,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_164857) do
     t.float "monthlySalary"
     t.float "perUnitRate"
     t.index ["department_id"], name: "index_teachers_on_department_id"
+  end
+
+  create_table "versions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "whodunnit"
+    t.datetime "created_at"
+    t.bigint "item_id", null: false
+    t.string "item_type", limit: 191, null: false
+    t.string "event", null: false
+    t.text "object", size: :long
+    t.text "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "classlists", "sections"

@@ -48,6 +48,8 @@ gem "pagy"
 gem "ransack"
 # Gem3
 gem "caxlsx_rails"
+# Gem4
+gem "paper_trail"
 
 group :development do
   gem "bullet"
