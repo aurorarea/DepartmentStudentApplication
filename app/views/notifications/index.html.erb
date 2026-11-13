@@ -1,0 +1,35 @@
+<div class="container py-4">
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <h2 class="fw-bold mb-0" style="color: #15370D;">Notifications</h2>
+    <% valid_events = @notifications.select { |e| e.params.present? && e.params[:name].present? } %>
+    <span class="badge rounded-pill bg-danger px-3 py-2 fs-6"><%= valid_events.count %></span>
+  </div>
+  
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+      <% if valid_events.any? %>
+        <div class="list-group list-group-flush">
+          <% valid_events.each do |event| %>
+            <div class="list-group-item px-4 py-3 d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center gap-3">
+                <span class="text-warning fs-5">
+                  <i class="bi bi-bell-fill"></i>
+                </span>
+                <div>
+                  <p class="mb-1 fw-semibold text-dark">
+                    <%= event.params[:name] %> joined <%= event.params[:department_name] %>
+                  </p>
+                  <small class="text-muted"><%= time_ago_in_words(event.created_at) %> ago</small>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="p-4 text-center">
+          <p class="text-muted mb-0">No notifications yet.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :sections
   resources :subjects
   resources :laboratories
+  resources :notifications, only: [:index]
   resources :teachers
   resources :students do
     member do

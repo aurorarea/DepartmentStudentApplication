@@ -4,6 +4,10 @@ class Student < ApplicationRecord
   has_many :sections, through: :classlists, dependent: :destroy
   has_paper_trail
 
+  after_create_commit do
+    NewStudentNotifier.with(record: self).deliver(Teacher.all)
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     [ "name", "year_level", "program" ]
   end

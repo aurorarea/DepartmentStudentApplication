@@ -50,6 +50,8 @@ gem "ransack"
 gem "caxlsx_rails"
 # Gem4
 gem "paper_trail"
+# Gem5
+gem "noticed"
 
 group :development do
   gem "bullet"

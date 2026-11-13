@@ -42,6 +42,13 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
+        # Ipasa nang direkta ang mga detalye sa params ng notifier
+        NewStudentNotifier.with(
+          name: @student.name,
+          program: @student.program,
+          department_name: @student.department&.name || "General"
+        ).deliver(Teacher.all)
+
         format.html { redirect_to @student, notice: "Student was successfully created." }
         format.json { render :show, status: :created, location: @student }
       else
@@ -82,7 +89,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:name, :year_level, :program, :department_id)
       params.expect(student: [ :name, :year_level, :program, :department_id, :tuitionFee, :subjectsCount, :numberOfUnits ])
     end
 end
