@@ -177,3 +177,47 @@
     </div>
   </div>
 </div>
+
+<!-- Change History Section -->
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Change History</h5>
+    
+    <% if @department.versions.any? %>
+      <% @department.versions.order(created_at: :desc).each do |version| %>
+        <div class="d-flex align-items-start mb-3 pb-3 border-bottom">
+          <div class="me-3">
+            <% badge_class = case version.event
+               when 'create' then 'bg-success'
+               when 'update' then 'bg-primary'
+               when 'destroy' then 'bg-danger'
+               else 'bg-secondary'
+               end %>
+            <span class="badge <%= badge_class %> text-uppercase"><%= version.event %></span>
+          </div>
+          
+          <div class="flex-grow-1">
+            <div class="text-muted small mb-1">
+              <%= version.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+            </div>
+            
+            <% if version.changeset.present? %>
+              <ul class="list-unstyled mb-0 small">
+                <% version.changeset.each do |attribute, (old_val, new_val)| %>
+                  <li>
+                    <strong><%= attribute.humanize %>:</strong> 
+                    <em><%= old_val.inspect %></em> &rarr; <em><%= new_val.inspect %></em>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="text-muted small mb-0">Record created.</p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-muted mb-0">No changes recorded yet.</p>
+    <% end %>
+  </div>
+</div>

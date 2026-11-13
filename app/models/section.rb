@@ -2,6 +2,7 @@ class Section < ApplicationRecord
   belongs_to :subject, counter_cache: :sectionCount, optional: true
   has_many :classlists, dependent: :destroy
   has_many :students, through: :classlists
+  has_paper_trail
 
   after_save :recalculate_teacher_salary
   after_destroy :recalculate_teacher_salary

@@ -4,6 +4,7 @@ class HomeController < ApplicationController
     @teacher_count = Teacher.count
     @subject_count = Subject.count
     @department_count = Department.count
+    @recent_activities = PaperTrail::Version.order(created_at: :desc).limit(10)
 
     # Faculty members for the sidebar roster matching the dashboard design
     @faculty_members = [

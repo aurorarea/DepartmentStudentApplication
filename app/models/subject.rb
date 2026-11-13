@@ -1,6 +1,7 @@
 class Subject < ApplicationRecord
   belongs_to :teacher
   has_many :sections, dependent: :destroy
+  has_paper_trail
 
   after_save :recalculate_teacher_salary
   after_destroy :recalculate_teacher_salary
