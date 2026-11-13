@@ -1,0 +1,33 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="col-md-5">
+    <!-- Card matching your dashboard styling -->
+    <div class="card shadow-sm border-0 p-4 rounded-4" style="background-color: #ffffff;">
+      <div class="card-body">
+        
+        <div class="text-center mb-4">
+          <span class="badge bg-success px-3 py-2 mb-2 rounded-pill">Account Recovery</span>
+          <h3 class="fw-bold text-dark">Forgot your password?</h3>
+          <p class="text-muted small">Enter your email address and we'll send you reset instructions</p>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="mb-4">
+            <%= f.label :email, class: "form-label fw-semibold text-secondary small" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control rounded-pill px-3 py-2", placeholder: "name@example.com" %>
+          </div>
+
+          <div class="d-grid mb-3">
+            <%= f.submit "Send me password reset instructions", class: "btn btn-success rounded-pill py-2 fw-bold shadow-sm" %>
+          </div>
+        <% end %>
+
+        <div class="text-center mt-3">
+          <%= render "devise/shared/links" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
