@@ -119,7 +119,7 @@
 </div>
 
 <!-- Enroll in a Section Card -->
-<div class="card border-0 shadow-sm">
+<div class="card border-0 shadow-sm mb-4">
   <div class="card-header bg-light py-3">
     <h6 class="card-title mb-0 fw-bold text-secondary">Enroll in a Section</h6>
   </div>
@@ -130,7 +130,7 @@
 
       <div class="mb-3">
         <%= form.label :section_id, "Section", class: "form-label fw-semibold" %>
-        <%= form.collection_select :section_id, @available_sections || Section.all, :id, ->(s) { s.respond_to?(:display_name) ? s.display_name : "#{s.subject&.name} - #{s.name}" }, { prompt: "Select a section" }, { class: "form-select" } %>
+        <%= form.collection_select :section_id, @available_sections || Section.all, :id, ->(s) { s.respond_to?(:display_name) ? s.display_name : "#{s.subject&.name} #{s.name}" }, { prompt: "Select a section" }, { class: "form-select" } %>
       </div>
 
       <div class="text-end">
@@ -139,4 +139,41 @@
     <% end %>
   </div>
 </div>
+
+<!-- Change History Card -->
+<div class="card border-0 shadow-sm">
+  <div class="card-header bg-light py-3">
+    <h6 class="card-title mb-0 fw-bold text-secondary">Change History</h6>
+  </div>
+  <div class="card-body">
+    <% if @student.versions.any? %>
+      <div class="list-group list-group-flush">
+        <% @student.versions.order(created_at: :desc).each do |v| %>
+          <% 
+            changes = v.respond_to?(:changeset) ? v.changeset : {}
+            changes.except!("updated_at")
+          %>
+          <div class="list-group-item px-0 py-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="badge bg-<%= v.event == 'create' ? 'success' : (v.event == 'update' ? 'primary' : 'danger') %>">
+                <%= v.event.titleize %>
+              </span>
+              <small class="text-muted"><%= v.created_at.strftime("%B %d, %Y - %I:%M %p") %></small>
+            </div>
+            <% if changes.present? %>
+              <ul class="small text-muted mb-0 mt-2 ps-3">
+                <% changes.each do |attr, (old_val, new_val)| %>
+                  <li><strong><%= attr.titleize %>:</strong> <del class="text-muted"><%= old_val.inspect %></del> &rarr; <ins class="text-success"><%= new_val.inspect %></ins></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="small text-muted mb-0 mt-1">No attribute changes recorded.</p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted mb-0">No changes recorded yet.</p>
+    <% end %>
+  </div>
 </div>

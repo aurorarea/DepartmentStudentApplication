@@ -100,6 +100,12 @@
             <span>Class Lists</span>
           <% end %>
         </li>
+        <li class="nav-item">
+          <%= link_to notifications_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(notifications_path)}", style: (current_page?(notifications_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
+            <i class="bi bi-bell text-white-50"></i>
+            <span>Notifications</span>
+          <% end %>
+        </li>
       </ul>
     </div>
   </div>

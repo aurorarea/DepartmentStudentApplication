@@ -1,0 +1,55 @@
+<div class="container-fluid px-4 py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>History Log for: <%= @student.name rescue "Record ##{@student.id}" %></h2>
+    <%= link_to "Back to Student", student_path(@student), class: "btn btn-outline-secondary" %>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>Action</th>
+              <th>Modified By</th>
+              <th>Timestamp</th>
+              <th>Changes / Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @versions.any? %>
+              <% @versions.each do |version| %>
+                <tr>
+                  <td>
+                    <span class="badge bg-<%= version.event == 'create' ? 'success' : (version.event == 'update' ? 'primary' : 'danger') %>">
+                      <%= version.event.titleize %>
+                    </span>
+                  </td>
+                  <td>
+                    <%= version.whodunnit ? "User ##{version.whodunnit}" : "System / Unknown" %>
+                  </td>
+                  <td><%= version.created_at.strftime("%B %d, %Y - %I:%M %p") %></td>
+                  <td>
+                    <% if version.changeset.present? %>
+                      <ul class="list-unstyled mb-0 small">
+                        <% version.changeset.each do |attribute, (old_val, new_val)| %>
+                          <li><strong><%= attribute.titleize %>:</strong> <del class="text-muted"><%= old_val %></del> &rarr; <ins class="text-success"><%= new_val %></ins></li>
+                        <% end %>
+                      </ul>
+                    <% else %>
+                      <span class="text-muted">No attribute changes recorded.</span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="4" class="text-center py-4 text-muted">No history records found for this student yet.</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

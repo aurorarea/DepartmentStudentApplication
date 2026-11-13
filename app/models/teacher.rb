@@ -1,6 +1,7 @@
 class Teacher < ApplicationRecord
   belongs_to :department, counter_cache: :teachersCount
   has_many :subjects, dependent: :destroy
+  has_many :notifications, as: :recipient, dependent: :destroy
 
   def update_monthly_salary!
     return unless perUnitRate

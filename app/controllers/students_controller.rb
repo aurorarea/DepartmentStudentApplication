@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: %i[ show edit update destroy ]
+  before_action :set_student, only: %i[ show edit update destroy history ]
 
   # GET /students or /students.json
   def index
@@ -22,6 +22,11 @@ class StudentsController < ApplicationController
     @sections = Section.all
   end
 
+  # GET /students/1/history
+  def history
+    @versions = @student.versions.order(created_at: :desc)
+  end
+
   # GET /students/new
   def new
     @student = Student.new
@@ -37,6 +42,13 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
+        # Ipasa nang direkta ang mga detalye sa params ng notifier
+        NewStudentNotifier.with(
+          name: @student.name,
+          program: @student.program,
+          department_name: @student.department&.name || "General"
+        ).deliver(Teacher.all)
+
         format.html { redirect_to @student, notice: "Student was successfully created." }
         format.json { render :show, status: :created, location: @student }
       else

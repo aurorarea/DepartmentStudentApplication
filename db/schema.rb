@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_12_164857) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_13_091347) do
   create_table "classlists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "section_id", null: false
@@ -37,6 +37,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_164857) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_laboratories_on_department_id"
+  end
+
+  create_table "noticed_events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "type"
+    t.string "record_type"
+    t.bigint "record_id"
+    t.json "params"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "notifications_count"
+    t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
+  end
+
+  create_table "noticed_notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "type"
+    t.bigint "event_id", null: false
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.datetime "read_at", precision: nil
+    t.datetime "seen_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
   create_table "sections", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -82,6 +106,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_164857) do
     t.float "monthlySalary"
     t.float "perUnitRate"
     t.index ["department_id"], name: "index_teachers_on_department_id"
+  end
+
+  create_table "versions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "whodunnit"
+    t.datetime "created_at"
+    t.bigint "item_id", null: false
+    t.string "item_type", limit: 191, null: false
+    t.string "event", null: false
+    t.text "object", size: :long
+    t.text "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "classlists", "sections"
