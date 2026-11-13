@@ -52,6 +52,8 @@ gem "caxlsx_rails"
 gem "paper_trail"
 # Gem5
 gem "noticed"
+# Gem6
+gem 'devise'
 
 group :development do
   gem "bullet"

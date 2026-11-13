@@ -9,4 +9,6 @@ class ApplicationController < ActionController::Base
   include Pagy::Method
 
   before_action :set_paper_trail_whodunnit
+  before_action :authenticate_user!
+  before_action :set_paper_trail_whodunnit
 end

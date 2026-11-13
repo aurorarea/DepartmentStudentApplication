@@ -36,11 +36,23 @@
         <% end %>
       </div>
 
-      <div class="d-flex align-items-center gap-2">
+      <div class="d-flex align-items-center gap-2 gap-md-3">
         <span class="d-none d-md-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill text-white-50" style="background: rgba(255,255,255,0.08); font-size: 0.8rem;">
           <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 6px #4ADE80;"></span>
           <span class="text-white" style="font-size: 0.775rem;">Semester 2026</span>
         </span>
+
+        <% if user_signed_in? %>
+          <span class="text-white-50 small d-none d-lg-inline"><%= current_user.email %></span>
+          <%= button_to destroy_user_session_path, method: :delete, class: "btn btn-sm rounded-pill px-3 fw-semibold d-flex align-items-center gap-1", style: "background-color: rgba(255,255,255,0.12); color: #ffffff; border: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem;" do %>
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Log out</span>
+          <% end %>
+        <% else %>
+          <%= link_to new_user_session_path, class: "btn btn-sm rounded-pill px-3 fw-bold", style: "background-color: #E5CD82; color: #15370D; font-size: 0.8rem;" do %>
+            Log in
+          <% end %>
+        <% end %>
       </div>
     </div>
   </nav>
@@ -56,7 +68,7 @@
       </h5>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body d-flex flex-column justify-content-between">
       <ul class="nav flex-column px-2 gap-1">
         <li class="nav-item">
           <%= link_to root_path, class: "nav-link text-white rounded d-flex align-items-center gap-2 #{'active' if current_page?(root_path)}", style: (current_page?(root_path) ? "background-color: #15370D; border-left: 3px solid #E5CD82;" : "") do %>
@@ -107,9 +119,19 @@
           <% end %>
         </li>
       </ul>
+
+      <% if user_signed_in? %>
+        <div class="px-2 pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+          <div class="text-white-50 small mb-2 px-2 text-truncate"><%= current_user.email %></div>
+          <%= button_to destroy_user_session_path, method: :delete, class: "btn btn-outline-light btn-sm w-100 rounded-pill d-flex align-items-center justify-content-center gap-2" do %>
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Sign Out</span>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
-
+  
   <!-- Main Content Area -->
   <main class="w-100 px-3 px-md-4 py-4 mt-5">
     <%= yield %>
@@ -117,5 +139,19 @@
 
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- Toggle Password Visibility Script -->
+  <script>
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === "password") {
+        input.type = "text";
+        btn.innerHTML = '<i class="bi bi-eye-slash"></i>';
+      } else {
+        input.type = "password";
+        btn.innerHTML = '<i class="bi bi-eye"></i>';
+      }
+    }
+  </script>
 </body>
 </html>
