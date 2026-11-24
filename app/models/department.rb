@@ -11,4 +11,7 @@ class Department < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "students", "teachers", "laboratories" ]
   end
+
+  validates :name, presence: true, uniqueness: true
+  validates :location, presence: true
 end

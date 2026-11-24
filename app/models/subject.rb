@@ -19,4 +19,6 @@ class Subject < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "teacher" ]
   end
+
+  validates :name, presence: true, uniqueness: true
 end

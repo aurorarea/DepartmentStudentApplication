@@ -28,4 +28,7 @@ class Section < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "subject" ]
   end
+  validates :name, presence: true, uniqueness: true
+  validates :room, presence: true
+  validates :timeslot, presence: true
 end

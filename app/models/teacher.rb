@@ -20,4 +20,9 @@ class Teacher < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "department" ]
   end
+
+  validates :name, presence: true
+  validates :specialization, presence: true
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :monthlySalary, :perUnitRate, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 end
