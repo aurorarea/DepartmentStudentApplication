@@ -15,4 +15,9 @@ class Student < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "department" ]
   end
+
+  validates :name, presence: true
+  validates :program, presence: true
+  validates :year_level, presence: true, inclusion: { in: 1..5, message: "must be between 1 and 5" }
+  validates :tuitionFee, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 end
