@@ -1,6 +1,6 @@
 class Subject < ApplicationRecord
   belongs_to :teacher
-  has_many :sections, dependent: :destroy
+  has_many :sections, dependent: :restrict_with_error
   has_paper_trail
 
   after_save :recalculate_teacher_salary
@@ -20,5 +20,5 @@ class Subject < ApplicationRecord
     [ "teacher" ]
   end
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: { maximum: 50 }
 end

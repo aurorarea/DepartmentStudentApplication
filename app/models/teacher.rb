@@ -1,6 +1,6 @@
 class Teacher < ApplicationRecord
   belongs_to :department, counter_cache: :teachersCount
-  has_many :subjects, dependent: :destroy
+  has_many :subjects, dependent: :restrict_with_error
   has_many :notifications, as: :recipient, dependent: :destroy
   has_paper_trail
 

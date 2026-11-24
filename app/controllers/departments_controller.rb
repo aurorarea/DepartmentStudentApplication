@@ -57,15 +57,18 @@ class DepartmentsController < ApplicationController
     end
   end
 
-  # DELETE /departments/1 or /departments/1.json
-  def destroy
-    @department.destroy!
-
-    respond_to do |format|
+# DELETE /departments/1 or /departments/1.json
+def destroy
+  respond_to do |format|
+    if @department.destroy
       format.html { redirect_to departments_path, notice: "Department was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
+    else
+      format.html { redirect_to departments_path, alert: @department.errors.full_messages.to_sentence, status: :see_other }
+      format.json { render json: @department.errors, status: :unprocessable_content }
     end
   end
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
