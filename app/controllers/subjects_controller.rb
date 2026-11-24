@@ -57,15 +57,18 @@ class SubjectsController < ApplicationController
     end
   end
 
-  # DELETE /subjects/1 or /subjects/1.json
-  def destroy
-    @subject.destroy!
-
-    respond_to do |format|
+# DELETE /subjects/1 or /subjects/1.json
+def destroy
+  respond_to do |format|
+    if @subject.destroy
       format.html { redirect_to subjects_path, notice: "Subject was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
+    else
+      format.html { redirect_to subjects_path, alert: @subject.errors.full_messages.to_sentence, status: :see_other }
+      format.json { render json: @subject.errors, status: :unprocessable_content }
     end
   end
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
