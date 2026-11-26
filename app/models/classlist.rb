@@ -8,6 +8,8 @@ class Classlist < ApplicationRecord
 
   private
 
+  validates :student_id, uniqueness: { scope: :section_id, message: "is already enrolled in this section" }
+
   def subject
     section&.subject
   end
@@ -66,6 +68,4 @@ class Classlist < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "subject", "student", "section" ]
   end
-
-  validates :student_id, uniqueness: { scope: :section_id, message: "is already enrolled in this section" }
 end

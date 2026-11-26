@@ -1,6 +1,6 @@
 class LaboratoriesController < ApplicationController
   before_action :set_laboratory, only: %i[ show edit update destroy ]
-
+  before_action :require_admin!, except: %i[ index show ]
   # GET /laboratories or /laboratories.json
   def index
     @q = Laboratory.ransack(params[:q])
