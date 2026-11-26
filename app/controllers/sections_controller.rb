@@ -1,6 +1,7 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: %i[ show edit update destroy ]
-
+  before_action :require_teacher_or_admin!, except: %i[ index show ]
+  before_action :require_admin!, only: %i[ destroy ]
   # GET /sections or /sections.json
   def index
     @q = Section.ransack(params[:q])

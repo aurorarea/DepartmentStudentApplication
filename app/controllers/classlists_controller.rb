@@ -1,6 +1,7 @@
 class ClasslistsController < ApplicationController
   before_action :set_classlist, only: %i[ show edit update destroy ]
-
+  before_action :require_teacher_or_admin!, except: %i[ index show ]
+  before_action :require_admin!, only: %i[ destroy ]
   # GET /classlists or /classlists.json
   def index
     @q = Classlist.ransack(params[:q])

@@ -11,4 +11,18 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
   before_action :authenticate_user!
   before_action :set_paper_trail_whodunnit
+
+  private
+
+  def require_admin!
+    unless current_user&.admin?
+      redirect_to root_path, alert: "Access denied. Admin privileges required."
+    end
+  end
+
+  def require_teacher_or_admin!
+    unless current_user&.teacher? || current_user&.admin?
+      redirect_to root_path, alert: "Access denied. Teacher or Admin privileges required."
+    end
+  end
 end

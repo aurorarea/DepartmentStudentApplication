@@ -1,7 +1,7 @@
 class Teacher < ApplicationRecord
   belongs_to :department, counter_cache: :teachersCount
   has_many :subjects, dependent: :restrict_with_error
-  has_many :notifications, as: :recipient, dependent: :destroy
+  has_many :notifications, as: :recipient, dependent: :destroy, class_name: "Noticed::Notification"
   has_paper_trail
 
   def update_monthly_salary!

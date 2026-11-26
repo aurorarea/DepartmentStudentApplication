@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy history ]
-
+  before_action :require_teacher_or_admin!
+  before_action :require_admin!, only: %i[ destroy ]
   # GET /students or /students.json
   def index
       @q = Student.ransack(params[:q])

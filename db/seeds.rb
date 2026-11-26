@@ -43,7 +43,7 @@ end
 # 2T
 t4 = Teacher.find_or_create_by!(name: "Khaki Difes") do |t|
   t.specialization = "Networks and Communications"
-  t.email = "rdowney@adnu.com"
+  t.email = "kdifes@adnu.com"
   t.department = ComSci
   t.perUnitRate = 2500
 end
@@ -452,5 +452,22 @@ students = [
 students.each do |student|
   sections.sample(4).each do |section|
     Classlist.find_or_create_by!(student: student, section: section)
+  end
+
+accounts = [
+  { email: "thaya.mihathi@admin.ph", password: "youlldogreater", role: :admin },
+  { email: "nneverio@admin.ph", password: "qwerty123", role: :admin },
+  { email: "teacher1@adnu.edu", password: "teacher1", role: :teacher },
+  { email: "teacher2@adnu.edu", password: "teacher2", role: :teacher },
+  { email: "salmero@adnu.edu.ph", password: "youlldogreater", role: :student },
+  { email: "mgvictoria@adnu.edu.ph", password: "mhonique28", role: :admin }
+]
+
+accounts.each do |attrs|
+  user = User.find_or_create_by!(email: attrs[:email]) do |u|
+    u.password = attrs[:password]
+    u.password_confirmation = attrs[:password]
+  end
+    user.update!(role: attrs[:role])
   end
 end
